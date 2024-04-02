@@ -10,6 +10,17 @@ import { TourCamera, OverviewCamera } from '../scene/cameras';
 import Model from '../scene/model'
 import './index.scss';
 
+// Custom fragment shader for bloom effect
+const bloomFragmentShader = `
+  uniform sampler2D baseTexture;
+  varying vec2 vUv;
+  void main() {
+    vec4 base = texture2D(baseTexture, vUv);
+    vec4 bloom = base * 10.2; // Adjust the bloom intensity here
+    gl_FragColor = bloom;
+  }
+`;
+
 function Loader({ setLoaded }) {
   const { progress } = useProgress();
   if (progress === 100) setLoaded(true);
@@ -19,40 +30,6 @@ function Loader({ setLoaded }) {
     </Html>
   );
 }
-
-const bloomFragmentShader = `
-uniform sampler2D inputBuffer;
-varying vec2 vUv;
-
-void main() {
-    vec4 texel = texture2D(inputBuffer, vUv);
-    vec3 color = texel.rgb;
-
-    // Apply bloom effect
-    float intensity = 5.0;
-    float threshold = 0.9;
-    float exposure = 1.0;
-    
-    vec3 blurredColor = vec3(0.0);
-    for (float x = -4.0; x <= 4.0; x += 1.0) {
-        for (float y = -4.0; y <= 4.0; y += 1.0) {
-            vec2 offset = vec2(x, y) * 0.004;
-            blurredColor += texture2D(inputBuffer, vUv + offset).rgb;
-        }
-    }
-    blurredColor /= 81.0;
-
-    vec3 bloom = color + (blurredColor - color) * intensity;
-
-    // Apply threshold to create glow effect
-    vec3 finalColor = mix(color, bloom, smoothstep(threshold, 1.0, length(bloom)));
-
-    // Apply exposure
-    finalColor *= exposure;
-
-    gl_FragColor = vec4(finalColor, texel.a);
-}
-`;
 
 function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) {
   const props = {
@@ -87,29 +64,22 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) 
   }
   const [dpr, setDpr] = useState(1.0)
 
-  const bloomMaterial = new ShaderMaterial({
-    uniforms: {
-      inputBuffer: { value: null },
-    },
-    fragmentShader: bloomFragmentShader,
-  });
-
   return (
     <Canvas className='scene'
       dpr={dpr}
-      // shadows
+      shadows
       // shadowMap
       gl={{
         logarithmicDepthBuffer: true,
-        antialias: false,
-        stencil: false,
-        depth: false,
+        // antialias: false,
+        // stencil: false,
+        // depth: false,
         // toneMapping: 1,
         // toneMappingExposure: .15
       }}
     >
       {/* <fog attach="fog" args={['black', 20, 100]} /> */}
-      <ambientLight intensity={.5} />
+      <ambientLight intensity={0.25} />
       {/* <PerformanceMonitorApi onIncline={() => setDpr(2)} onDecline={() => setDpr(1)} ></PerformanceMonitorApi> */}
       <TourCamera makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} />
       <OverviewCamera makeDefault={overview} />
@@ -121,7 +91,14 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) 
         <SSR {...props} />
         <Vignette />
         <ChromaticAberration offset={new Vector2(.001, 0)} />
-        <Bloom mipmapBlur={false} intensity={1} kernalSize={4} luminanceSmoothing={.25} luminanceThreshold={.5} />
+        {/* <RenderPass attachArray="passes" args={['scene', 'camera']} /> */}
+
+        {/* <shaderPass attachArray="passes" args={[ShaderMaterial, {
+          fragmentShader: bloomFragmentShader,
+          uniforms: {
+            baseTexture: { value: null },
+          },
+        }]} /> */}
       </EffectComposer>
     </Canvas>
   )
