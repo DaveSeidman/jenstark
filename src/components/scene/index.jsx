@@ -1,21 +1,32 @@
 import React, { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
+import { ShaderMaterial, Vector2 } from 'three';
 import { Bloom, DepthOfField, ChromaticAberration, EffectComposer, Noise, Vignette, SSR } from '@react-three/postprocessing'
 import { Environment, Html, PerspectiveCamera, Plane, Sphere, Box, RoundedBox, useProgress } from '@react-three/drei';
-import { Vector2 } from 'three';
 import envFile from '../../assets/images/metro_noord_4k.hdr';
+// import { ShaderPass } from 'postprocessing'
 import { TourCamera, OverviewCamera } from '../scene/cameras';
 
 import Model from '../scene/model'
 import './index.scss';
 
+// Custom fragment shader for bloom effect
+const bloomFragmentShader = `
+  uniform sampler2D baseTexture;
+  varying vec2 vUv;
+  void main() {
+    vec4 base = texture2D(baseTexture, vUv);
+    vec4 bloom = base * 10.2; // Adjust the bloom intensity here
+    gl_FragColor = bloom;
+  }
+`;
 
 function Loader({ setLoaded }) {
   const { progress } = useProgress();
   if (progress === 100) setLoaded(true);
   return (
     <Html className="preloader">
-      <h1>{`${Math.round(progress)}%`}</h1>
+      <h1>{`Still Dripping... ${Math.round(progress)}%`}</h1>
     </Html>
   );
 }
@@ -59,7 +70,7 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) 
       shadows
       // shadowMap
       gl={{
-        // logarithmicDepthBuffer: true,
+        logarithmicDepthBuffer: true,
         // antialias: false,
         // stencil: false,
         // depth: false,
@@ -73,16 +84,21 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) 
       <TourCamera makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} />
       <OverviewCamera makeDefault={overview} />
       <Environment files={envFile} background={false} intensity={1} />
-      {/* <color attach="background" args={['#151520']} /> */}
-      {/* <hemisphereLight intensity={0.5} /> */}
       <Suspense fallback={<Loader setLoaded={setLoaded} />}>
         <Model />
       </Suspense>
       <EffectComposer disableNormalPass>
         <SSR {...props} />
-        {/* <DepthOfField focusDistance={1} focalLength={0.02} bokehScale={2} height={480} /> */}
         <Vignette />
         <ChromaticAberration offset={new Vector2(.001, 0)} />
+        {/* <RenderPass attachArray="passes" args={['scene', 'camera']} /> */}
+
+        {/* <shaderPass attachArray="passes" args={[ShaderMaterial, {
+          fragmentShader: bloomFragmentShader,
+          uniforms: {
+            baseTexture: { value: null },
+          },
+        }]} /> */}
       </EffectComposer>
     </Canvas>
   )

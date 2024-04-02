@@ -4,6 +4,8 @@ import './index.scss';
 function Carousel({ pages, scrollPercent, setScrollPercent, carouselPage, setCarouselPage }) {
   const pagesRef = useRef();
 
+  const [scrollHint, setScrollHint] = useState(false);
+
   const scroll = ({ target }) => {
     const { scrollTop, scrollHeight } = target;
     const { height } = target.getBoundingClientRect();
@@ -23,6 +25,13 @@ function Carousel({ pages, scrollPercent, setScrollPercent, carouselPage, setCar
     setTimeout(() => {
       setCarouselPage(0);
     })
+    setTimeout(() => {
+      setScrollHint(true);
+    }, 500);
+
+    setTimeout(() => {
+      setScrollHint(false);
+    }, 3500);
   }
 
   useEffect(() => {
@@ -60,7 +69,10 @@ function Carousel({ pages, scrollPercent, setScrollPercent, carouselPage, setCar
         }
       </div>
       <div className={`carousel-start ${scrollPercent < .01 ? '' : 'hidden'}`}>
-        <button onClick={scrollToFirstPage}>Scroll to Explore</button>
+        <button onClick={scrollToFirstPage}>Click to Enter</button>
+      </div>
+      <div className={`carousel-hint ${scrollHint ? '' : 'hidden'}`}>
+        Scroll To Continue
       </div>
       <div className={`carousel-restart ${scrollPercent > .99 ? '' : 'hidden'}`}>
         <button onClick={scrollToTop}>Return to Lounge</button>

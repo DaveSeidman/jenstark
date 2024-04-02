@@ -16,7 +16,11 @@ function Model() {
     // console.log("here", videoTextures.current[Object.keys(videoTextures.current)[0]].source.data.paused)
     // if (videosStarted.current) return
     Object.keys(videoTextures.current).forEach((name) => {
-      videoTextures.current[name].source.data.play();
+      if (!videoTextures.current[name].source.data) {
+        console.log('vid not found?', name);
+      } else {
+        videoTextures.current[name].source.data.play();
+      }
       // videoTextures.current[name].needsUpdate = true;
       // videoTextures.current[name].needsPMREMUpdate = true
     })
