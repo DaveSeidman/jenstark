@@ -1,0 +1,119 @@
+{
+  "pages": [
+    {
+      "title": "Entrance",
+      "slug": "exp",
+      "percentAlongTour": 0.06, 
+      "percent": 0.08333,
+      "pathLength": 0.91,
+      "visible": true
+    },
+    {
+      "title": "Light Tunnel",
+      "slug": "lt",
+      "percentAlongTour": 0.12, 
+      "percent": 0.1666,
+      "pathLength": 1.0,
+      "visible": true
+    },
+    {
+      "title": "Strobe Wall",
+      "slug": "sw",
+      "percentAlongTour": 0.20, 
+      "percent": 0.25,
+      "pathLength": 1.17,
+      "visible": true
+    },
+    {
+      "title": "Drip Cascade",
+      "slug": "dc",
+      "percentAlongTour": 0.3, 
+      "percent": 0.333,
+      "pathLength": 0.43,
+      "visible": true
+    },
+    {
+      "title": "Rainbow Cycle",
+      "slug": "rc",
+      "percentAlongTour": 0.43, 
+      "percent": 0.41666,
+      "pathLength": 1.0,
+      "visible": true
+    },
+    {
+      "title": "Drip Coloring Book",
+      "slug": "nwdcb",
+      "percentAlongTour": 0.48, 
+      "percent": 0.555,
+      "pathLength": 0.73,
+      "visible": true
+    },
+    {
+      "title": "Digital Paint",
+      "slug": "dp",
+      "percentAlongTour": 0.53, 
+      "percent": 0.58333,
+      "pathLength": 0.72,
+      "visible": true
+      
+    },
+    {
+      "title": "Space Junk",
+      "slug": "sj",
+      "percentAlongTour": 0.6, 
+      "percent": 0.666,
+      "pathLength": 1.05,
+      "visible": true
+    },
+    {
+      "title": "Kaleidoscopic Waterfall",
+      "slug": "kw",
+      "percentAlongTour": 0.73, 
+      "percent": 0.75,
+      "pathLength": 1.76,
+      "visible": true
+    },
+    {
+      "title": "Gift Shop",
+      "slug": "gs",
+      "percentAlongTour": 0.86, 
+      "percent": 0.8333,
+      "pathLength": 1.3,
+      "visible": true
+    },
+    {
+      "title": "Lounge",
+      "slug": "l1",
+      "percentAlongTour": 0.95, 
+      "percent": 0.91666,
+      "pathLength": 1.22,
+      "visible": true
+    },
+    {
+      "title": "End",
+      "slug": "f",
+      "percentAlongTour": 1, 
+      "percent": 1,
+      "pathLength": 0.66,
+      "visible": false
+    }
+  ],
+  "carousels": {
+    "alloy": [
+      "Alloy-01.jpeg",
+      "Alloy-02.jpeg",
+      "Alloy-03.jpeg"
+    ]
+  },
+  "passcodes": {
+    "cascade": {
+      "name": "generic"
+    },
+    "sketchers": {
+      "name": "sketchers"
+    },
+    "bulleit": {
+      "name": "bulleit"
+    }
+  }
+}

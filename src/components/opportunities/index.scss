@@ -1,0 +1,69 @@
+@import '../../index.scss';
+
+.opportunities {
+  background: url('../../assets/images/background3.jpg');
+  background-position: center;
+  background-size: cover;
+  color: white;
+  padding: 4rem;
+  
+  &-body {
+    width: calc(100% - 8rem);
+    max-width: calc($maxWidth - 4rem);
+    padding: 1rem 2rem;
+    margin: auto;
+    background-color: rgba(0, 0, 0, .7);
+    h1, h2, p {
+      text-align: center;
+    }
+    h1 {
+      font-size: 6rem !important;
+    }
+
+    &-levels {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+
+      &-level {
+        width: calc(33.33% - 2rem);
+        height: auto;
+        margin: 3rem 1rem;
+        display: flex;
+        flex-direction: row;
+        align-content: space-between;
+        flex-wrap: wrap;
+        justify-content: center;
+        position: relative;
+        
+        h2 {
+          margin: 0;
+          font-size: 4rem;
+          text-align: center;
+        }
+        p {
+          font-size: 1.5rem;
+        }
+
+        a.button {
+          // height: 3.5rem;
+          // position: absolute;
+          // bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1500px) {
+  .opportunities-body-levels-level {
+    width: calc(50% - 2rem);
+  }
+}
+
+@media (max-width: 800px) {
+  .opportunities-body-levels-level {
+    width: calc(100% - 2rem);
+  }
+}

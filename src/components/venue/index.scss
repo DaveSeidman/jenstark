@@ -1,0 +1,65 @@
+@import '../../index.scss';
+
+.venue {
+  background: $purple;
+  overflow: hidden;
+
+  &.inview {
+    .venue-body-map-drip {
+      transform: translateY(0%);
+    }
+  }
+
+  &-body {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: $maxWidth;
+    flex-wrap: wrap;
+    margin: auto;
+
+    &-map {
+      width: 33.33%;
+      position: relative;
+      img {
+        width: 100%;
+      }
+
+      &-drip {
+        max-width: $maxWidth;
+        margin: auto;
+        width: 30vh;
+        height: 30vh;
+        background: $teal;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: url('../../assets/images/drip4.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        transition: transform 1s;
+        transform: translateY(-100%);
+      }
+    }
+
+    &-text {
+      width: calc(66.66% - 4rem);
+      padding: 0 2rem;
+      color: white;
+    }
+  }
+}
+
+@media (max-width: $minWidth) {
+  .venue {
+    &-body {
+      &-map {
+        width: 100%;
+      }
+
+      &-text {
+        width: 100%;
+      }
+    }
+  }
+}

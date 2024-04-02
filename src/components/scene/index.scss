@@ -1,0 +1,18 @@
+.preloader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 4rem;
+    color: white;
+    font-family: 'Warsaw Gothic';
+    font-size: 4rem;
+  }
+}
+
+.scene {
+  height: calc(100vh - 10rem) !important;
+}

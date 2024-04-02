@@ -1,0 +1,164 @@
+// Colors
+
+$blue: rgb(46, 132, 255);
+$red:rgb(255, 57, 51);
+$orange: rgb(255, 133, 0);
+$teal: rgb(8, 192, 100);
+$purple: rgb(103, 37, 234);
+$darkpurple: rgb(50, 16, 133);
+$yellow: rgb(245, 234, 30);
+
+.yellow { color: $yellow; }
+
+.back-blue { background: $blue; }
+.back-red { background: $red; }
+.back-orange { background: $orange; }
+.back-teal { background: $teal; }
+.back-purple { background: $purple; }
+.back-yellow { background: $yellow; }
+
+@font-face {
+  font-family: 'Helvetica';
+  font-weight: normal;
+  src: url('/fonts/Helvetica.ttf');
+}
+@font-face {
+  font-family: 'Helvetica';
+  font-weight: bold;
+  src: url('/fonts/Helvetica-Bold.ttf');
+}
+@font-face {
+  font-family: 'Warsaw Gothic';
+  font-weight: bold;
+  src: url('/fonts/WarsawGothicExt.otf');
+}
+@font-face {
+  font-family: 'Warsaw Gothic';
+  font-weight: normal;
+  src: url('/fonts/WarsawGothic.otf');
+}
+
+$maxWidth: 1200px;
+$minWidth: 720px;
+
+html, body {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: black;
+  overflow-x: hidden;
+  font-size: 14px;
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
+  // #root, .app {
+  //   width: 100%;
+  //   overflow-x: hidden;
+
+  // }
+  
+  h1, h2, h3 {
+    font-family: 'Warsaw Gothic';
+    // transform: scaleX(.9);
+    // transform-origin: 0 0;
+    // font-stretch: extra-condensed;
+  }
+
+  h1 {
+    // font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 3rem;
+  }
+
+  p {
+    font-family: 'Helvetica';
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+  }
+
+  h1, h2    {
+    text-transform: uppercase;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .hidden {
+    opacity: 0;
+    visibility: hidden
+  }
+
+  .large {
+    font-size: 7rem !important;
+  }
+
+  .map {
+    
+    position: absolute;
+    top: calc(100vh - 18rem);
+    right: 0;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    border: 0;
+    margin: 1rem;
+    background: none;
+    cursor:pointer;
+    opacity: .5;
+  }
+
+  .scrollHint {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 0;
+    border: 0;
+    margin: 0;
+    background: $darkpurple;
+    color: white;
+    cursor: pointer;
+    font-family: 'Warsaw Gothic';
+    font-size: 3rem;
+    text-align: center;
+    text-transform: uppercase;
+
+    img {
+      height: 3rem;
+      margin: 0 1rem;
+    }
+  }
+
+  .debug {
+    position: absolute;
+    top: 0;
+    left: 0;    
+    display: none;
+    height: 1rem;
+    padding: 1rem;
+    color: white;
+  }
+
+  .version {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: .5rem;
+    color: white;
+    font-size: .75rem;
+    opacity: .5;
+  }
+
+  button, .button {
+    background: $purple;
+    color: white;
+    font-family: 'Warsaw Gothic';
+    font-size: 3rem;
+    border: none;
+    padding: .5rem 3rem;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+}

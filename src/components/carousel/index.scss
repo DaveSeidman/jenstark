@@ -1,0 +1,47 @@
+@import '../../index.scss';
+
+.carousel {
+  position: absolute;
+  inset: 0;
+  height: calc(100vh - 10rem);
+  * {
+    user-select: none;
+  }
+
+  &-pages {
+    position: absolute;
+    inset: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    &-page {
+      display: flex;
+      justify-content: flex-start;
+
+      &-title {
+        width: auto;
+        height: 100%;
+      }
+    }
+  }
+
+  &-start, &-restart {
+    // background: $purple;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 1s, visibility 1s;
+    transition-delay: 1s;
+    pointer-events: none;
+
+    button {
+      pointer-events: auto;
+    }
+
+    &.hidden {
+      transition: opacity .5s, visibility .5s;
+      transition-delay: 0s;
+    }
+  }
+}

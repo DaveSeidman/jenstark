@@ -1,0 +1,25 @@
+@import '../../index.scss';
+
+.passcode {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('../../assets/images/mandala.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  input[type=text] {
+    font-family: 'Warsaw Gothic';
+    font-size: 3rem;
+    text-align: center;
+    color: $purple;
+  }
+
+  &-submit {
+    padding: .25rem .75rem;
+  }
+
+}

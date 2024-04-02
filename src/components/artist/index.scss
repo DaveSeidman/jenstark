@@ -1,0 +1,114 @@
+@import '../../index.scss';
+
+.artist {
+  background: $purple;
+  &-body {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: $maxWidth;
+    flex-wrap: wrap;
+    margin: auto;
+
+    &-left, &-right {
+      width: 50%;
+    }
+
+    &-left {
+      position: relative;
+      &-photo {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 50%;
+        background-image: url('../../assets/images/jen-stark.png');
+        background-position: center;
+        background-size: cover;
+      }
+
+      &-socials {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 50%;
+
+        &-background {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 125%;
+          height: 125%;
+          background-image: url('../../assets/images/mandala.png');
+          background-position: center;
+          background-size: 80%;
+          background-repeat: no-repeat;
+          transform: translate(-50%, -50%) scale(0);
+          transition: transform 1s;
+          transition-timing-function: (0.74, 0.19, 0.53, 1.11);
+
+          &.active {
+            transform: translate(-50%, -50%) scale(1);
+          }
+        }
+
+        &-title {
+          position: absolute;
+          color: white;
+          text-align: center;
+          width: 100%;
+          top: 0;
+          font-size: 4rem;
+        }
+
+        &-icons {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          flex-wrap: nowrap;
+          transform: translate(-50%, -50%) scale(0);
+          transition: transform 1.5s;
+          transition-timing-function: cubic-bezier(0.74, 0.19, 0.53, 1.11);
+
+          &.active {
+            transform: translate(-50%, -50%) scale(1.1);
+          }
+
+          img {
+            width: 8vw;
+            margin: 2vw;
+          }
+        }
+
+      }
+    }
+
+    &-right {
+      background: $purple;
+      color: white;
+      h2 {
+        padding: 1rem 2rem;
+        margin: 0;
+      }
+      p {
+        padding: .25rem 2rem;
+      }
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media (max-width: $minWidth ) {
+  .artist {
+    &-body {
+      & > * {
+        width: 100%;
+      }
+    }
+  }
+}
