@@ -84,6 +84,7 @@ function Model() {
         videoTextures.current[obj.material.name] = videoTexture;
         obj.material.map = videoTexture;
         obj.material.emissiveMap = videoTexture;
+        // obj.material.emissiveIntensity = .75;
       }
     });
 
