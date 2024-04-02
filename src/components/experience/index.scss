@@ -14,13 +14,13 @@
 
     &:before {
       content: '';
-      width: 20vh;
-      height: 20vh;
+      width: 20rem;
+      height: 20rem;
       background: $teal;
       position: absolute;
       top: -2rem;
       right: -4rem;
-      background: url('../../assets/images/drip1.svg');
+      background: url('../../assets/images/drip2.svg');
       background-size: contain;
       background-repeat: no-repeat;
       transform: translateY(-100%);
