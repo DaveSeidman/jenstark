@@ -73,13 +73,14 @@ function Model() {
         video.setAttribute('playsinline', true);
         video.setAttribute('muted', true);
         video.setAttribute('loop', true);
-        video.src = `${location.pathname}/${obj.material.name}`;
+        video.src = `${location.pathname}/videos/${obj.material.name}`;
         const videoTexture = new VideoTexture(video)
         videoTexture.flipY = false;
         videoTexture.wrapS = RepeatWrapping;
         videoTextures.current[obj.material.name] = videoTexture;
         obj.material.map = videoTexture;
         obj.material.emissiveMap = videoTexture;
+        console.log("Location Pathname", location.pathname);
       }
     });
 
