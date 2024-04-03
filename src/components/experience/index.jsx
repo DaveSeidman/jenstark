@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import drip1Image from '../../assets/images/drip1.png'
 import './index.scss';
 
 function Experience() {
