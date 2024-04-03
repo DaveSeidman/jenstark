@@ -52,8 +52,9 @@ html, body, #root, .app {
   scroll-behavior: smooth;
 
   .app {
-    position: fixed;
+    
     &.locked {
+      position: fixed;
       overflow: hidden !important;
     }
   }
