@@ -14,7 +14,7 @@ function VideoCover({ loaded }) {
         muted
         autoPlay
         loop
-        src={`${location.pathname}/VideoCover.mp4`}
+        src={`./videos/VideoCover.mp4`}
       />
       <div className={`videocover-title ${loaded ? '' : 'hidden'}`}>
         <h1>CLICK &nbsp; TO &nbsp; ENTER &nbsp; CASCADE</h1>
