@@ -56,7 +56,7 @@ function App() {
               setScrollPercent={setScrollPercent}
               setCarouselPage={setCarouselPage}
             ></Progress>
-            <a className="scrollHint" href="#nav"><img src={downArrow} />Info<img src={downArrow} /></a>
+            <a className="scrollHint" href="#nav"><img src={downArrow} />More Below<img src={downArrow} /></a>
             <Nav />
             <Experience />
             <Artist />

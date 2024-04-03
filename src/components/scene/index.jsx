@@ -20,40 +20,6 @@ function Loader({ setLoaded }) {
   );
 }
 
-const bloomFragmentShader = `
-uniform sampler2D inputBuffer;
-varying vec2 vUv;
-
-void main() {
-    vec4 texel = texture2D(inputBuffer, vUv);
-    vec3 color = texel.rgb;
-
-    // Apply bloom effect
-    float intensity = 5.0;
-    float threshold = 0.9;
-    float exposure = 1.0;
-    
-    vec3 blurredColor = vec3(0.0);
-    for (float x = -4.0; x <= 4.0; x += 1.0) {
-        for (float y = -4.0; y <= 4.0; y += 1.0) {
-            vec2 offset = vec2(x, y) * 0.004;
-            blurredColor += texture2D(inputBuffer, vUv + offset).rgb;
-        }
-    }
-    blurredColor /= 81.0;
-
-    vec3 bloom = color + (blurredColor - color) * intensity;
-
-    // Apply threshold to create glow effect
-    vec3 finalColor = mix(color, bloom, smoothstep(threshold, 1.0, length(bloom)));
-
-    // Apply exposure
-    finalColor *= exposure;
-
-    gl_FragColor = vec4(finalColor, texel.a);
-}
-`;
-
 function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) {
   const props = {
     temporalResolve: true,
@@ -87,15 +53,10 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) 
   }
   const [dpr, setDpr] = useState(1.0)
 
-  const bloomMaterial = new ShaderMaterial({
-    uniforms: {
-      inputBuffer: { value: null },
-    },
-    fragmentShader: bloomFragmentShader,
-  });
-
   return (
-    <Canvas className='scene'
+    <Canvas
+      className='scene'
+      performance={{ min: 0.5 }}
       dpr={dpr}
       // shadows
       // shadowMap
@@ -109,7 +70,7 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) 
       }}
     >
       {/* <fog attach="fog" args={['black', 20, 100]} /> */}
-      <ambientLight intensity={.5} />
+      <ambientLight intensity={0.5} />
       {/* <PerformanceMonitorApi onIncline={() => setDpr(2)} onDecline={() => setDpr(1)} ></PerformanceMonitorApi> */}
       <TourCamera makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} />
       <OverviewCamera makeDefault={overview} />
@@ -119,9 +80,14 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) 
       </Suspense>
       <EffectComposer disableNormalPass>
         <SSR {...props} />
+        <Bloom
+          mipmapBlur={true}
+          intensity={2} kernalSize={4}
+          luminanceSmoothing={.25}
+          luminanceThreshold={.75}
+        />
+        <ChromaticAberration offset={new Vector2(.002, 0)} />
         <Vignette />
-        <ChromaticAberration offset={new Vector2(.001, 0)} />
-        <Bloom mipmapBlur={false} intensity={1} kernalSize={4} luminanceSmoothing={.25} luminanceThreshold={.5} />
       </EffectComposer>
     </Canvas>
   )

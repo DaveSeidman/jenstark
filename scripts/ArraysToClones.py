@@ -42,7 +42,7 @@ def main():
     
     # Traverse through all objects in the scene
     for obj in bpy.data.objects:
-        if obj.type == 'MESH':
+        if obj.type == 'MESH' and obj.visible_get():
             # Check if the object has an array modifier
             array_modifiers = [modifier for modifier in obj.modifiers if modifier.type == 'ARRAY']
             if array_modifiers:
