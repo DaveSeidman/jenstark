@@ -12,7 +12,7 @@ function VideoBreak() {
         loop
         playsInline
         autoPlay
-        src={`${location.pathname}/VideoBreak.mp4`} />
+        src={`./videos/VideoBreak.mp4`} />
     </div>
   )
 }
