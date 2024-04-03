@@ -4,11 +4,11 @@ import { AnimationMixer, VideoTexture, RepeatWrapping, MeshStandardMaterial } fr
 import { useGLTF } from '@react-three/drei';
 import sceneFile from '../../assets/models/scene.glb';
 
-function Model() {
+function Model({ triggerPlayback }) {
   // Ask GPT if we should move the gltf loading outside of here
   const gltf = useGLTF(sceneFile);
   const videoTextures = useRef({})
-  const videosStarted = useRef(false);
+  // const videosStarted = useRef(false);
   const mixers = useRef([]);
 
 
@@ -19,12 +19,14 @@ function Model() {
       if (!videoTextures.current[name].source.data) {
         console.log('vid not found?', name);
       } else {
+
         videoTextures.current[name].source.data.play();
+        videoTextures.current[name].needsUpdate = true
       }
       // videoTextures.current[name].needsUpdate = true;
       // videoTextures.current[name].needsPMREMUpdate = true
     })
-    videosStarted.current = true;
+    // videosStarted.current = true;
   }
   useEffect(() => {
 
@@ -59,15 +61,16 @@ function Model() {
         animCount += 1;
       }
 
-      if (obj.name === 'floor') {
+      if (obj.name === 'floor' || obj.name === 'sidewalk') {
         obj.receiveShadow = true;
         obj.castShadow = true;
         obj.smoothness = 10
         obj.material = new MeshStandardMaterial({
-          color: 0x000000,
+          color: obj.material.color,
           envMapIntensity: .5,
           roughness: 0,
           metalness: 0,
+          map: obj.material.map,
           normalMap: obj.material.normalMap
         })
       }
@@ -94,6 +97,13 @@ function Model() {
       removeEventListener('click', startVideos)
     }
   }, [])
+
+  useEffect(() => {
+    if (triggerPlayback) {
+      console.log('play videos here');
+      startVideos();
+    }
+  }, [triggerPlayback])
 
   useFrame((_, delta) => {
     Object.keys(videoTextures.current).forEach(name => {

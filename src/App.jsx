@@ -25,15 +25,27 @@ function App() {
   const [scrollPercent, setScrollPercent] = useState(0);
   const [carouselPage, setCarouselPage] = useState(0);
   const [passcode, setPasscode] = useState(null);
+  const [triggerPlayback, setTriggerPlayback] = useState(false);
   const lookAhead = 0.005;
 
+  const clicked = () => {
+    setTriggerPlayback(true);
+    setTimeout(() => {
+      setTriggerPlayback(false);
+    })
+  }
+
   return (
-    <div className={`app ${passcode ? '' : 'locked'}`}>
+    <div
+      className={`app ${passcode ? '' : 'locked'}`}
+      onClick={clicked}
+    >
       <Scene
         overview={overview}
         scrollPercent={scrollPercent}
         lookAhead={lookAhead}
         setLoaded={setLoaded}
+        triggerPlayback={triggerPlayback}
       ></Scene>
       <Carousel
         lookAhead={lookAhead}

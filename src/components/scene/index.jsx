@@ -4,7 +4,6 @@ import { ShaderMaterial, Vector2 } from 'three';
 import { Bloom, DepthOfField, ChromaticAberration, EffectComposer, Noise, Vignette, SSR } from '@react-three/postprocessing'
 import { Environment, Html, PerspectiveCamera, Plane, Sphere, Box, RoundedBox, useProgress } from '@react-three/drei';
 import envFile from '../../assets/images/metro_noord_4k.hdr';
-// import { ShaderPass } from 'postprocessing'
 import { TourCamera, OverviewCamera } from '../scene/cameras';
 
 import Model from '../scene/model'
@@ -15,12 +14,12 @@ function Loader({ setLoaded }) {
   if (progress === 100) setLoaded(true);
   return (
     <Html className="preloader">
-      <h1>{`Still Dripping... ${Math.round(progress)}%`}</h1>
+      <h1>{`Loading... ${Math.round(progress)}%`}</h1>
     </Html>
   );
 }
 
-function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) {
+function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback }) {
   const props = {
     temporalResolve: true,
     STRETCH_MISSED_RAYS: true,
@@ -65,8 +64,8 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) 
         antialias: false,
         stencil: false,
         depth: false,
-        // toneMapping: 1,
-        // toneMappingExposure: .15
+        toneMapping: 1,
+        toneMappingExposure: .5
       }}
     >
       {/* <fog attach="fog" args={['black', 20, 100]} /> */}
@@ -76,15 +75,16 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) 
       <OverviewCamera makeDefault={overview} />
       <Environment files={envFile} background={false} intensity={1} />
       <Suspense fallback={<Loader setLoaded={setLoaded} />}>
-        <Model />
+        <Model triggerPlayback={triggerPlayback} />
       </Suspense>
       <EffectComposer disableNormalPass>
         <SSR {...props} />
         <Bloom
           mipmapBlur={true}
-          intensity={2} kernalSize={4}
-          luminanceSmoothing={.25}
-          luminanceThreshold={.75}
+          intensity={1.5}
+          kernalSize={2}
+          luminanceSmoothing={1.25}
+          luminanceThreshold={.95}
         />
         <ChromaticAberration offset={new Vector2(.002, 0)} />
         <Vignette />
