@@ -43,14 +43,14 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
     jitterRough: 0.1,
     roughnessFadeOut: 1,
     rayFadeOut: 0,
-    MAX_STEPS: 20,
+    MAX_STEPS: 10,
     NUM_BINARY_SEARCH_STEPS: 5,
     maxDepthDifference: 3,
     maxDepth: 1,
     thickness: 10,
     ior: 1.5
   }
-  const [dpr, setDpr] = useState(1.0)
+  const [dpr, setDpr] = useState(1)
 
   return (
     <Canvas

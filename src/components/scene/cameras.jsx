@@ -47,7 +47,6 @@ export function TourCamera({ makeDefault, scrollPercent, lookAhead }) {
   }
 
   const pointerMove = (e) => {
-    console.log('pointer move')
     const { clientX, clientY } = e;
     const { width, height } = gl.domElement.getBoundingClientRect();
 
@@ -55,7 +54,6 @@ export function TourCamera({ makeDefault, scrollPercent, lookAhead }) {
 
       rotationTarget.current.x += ((clientY / height) - pointerTarget.current.x) * 4;
       rotationTarget.current.y += ((clientX / width) - pointerTarget.current.y) * 4;
-      console.log('here', rotationTarget.current)
     }
 
     rotationTarget2.current.y = (clientX / width) * -.2;
