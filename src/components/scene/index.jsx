@@ -86,7 +86,7 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
           luminanceSmoothing={1.25}
           luminanceThreshold={.95}
         />
-        <ChromaticAberration offset={new Vector2(.002, 0)} />
+        {/* <ChromaticAberration offset={new Vector2(.0015, 0)} /> */}
         <Vignette />
       </EffectComposer>
     </Canvas>
