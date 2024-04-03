@@ -1,6 +1,6 @@
 import React, { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ShaderMaterial, Vector2 } from 'three';
+import { ShaderMaterial, Vector2, NoToneMapping, LinearToneMapping, ReinhardToneMapping, CineonToneMapping, ACESFilmicToneMapping, CustomToneMapping } from 'three';
 import { Bloom, DepthOfField, ChromaticAberration, EffectComposer, Noise, Vignette, SSR } from '@react-three/postprocessing'
 import { Environment, Html, PerspectiveCamera, Plane, Sphere, Box, RoundedBox, useProgress } from '@react-three/drei';
 import envFile from '../../assets/images/metro_noord_4k.hdr';
@@ -64,7 +64,7 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
         antialias: false,
         stencil: false,
         depth: false,
-        toneMapping: 1,
+        toneMapping: LinearToneMapping,
         toneMappingExposure: .5
       }}
     >

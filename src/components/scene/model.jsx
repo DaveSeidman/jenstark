@@ -63,8 +63,8 @@ function Model({ triggerPlayback }) {
 
       if (obj.name === 'floor' || obj.name === 'sidewalk') {
         obj.receiveShadow = true;
-        obj.castShadow = true;
-        obj.smoothness = 10
+        // obj.castShadow = true;
+        obj.smoothness = 5
         obj.material = new MeshStandardMaterial({
           color: obj.material.color,
           envMapIntensity: .5,
@@ -74,13 +74,16 @@ function Model({ triggerPlayback }) {
           normalMap: obj.material.normalMap
         })
       }
+
+
       if (obj.material?.name.includes('mp4') && !videoTextures.current[obj.material.name]) {
+        console.log(obj.material.name);
         const video = document.createElement('video');
         video.setAttribute('autoplay', true);
         video.setAttribute('playsinline', true);
         video.setAttribute('muted', true);
         video.setAttribute('loop', true);
-        video.src = `./videos/${obj.material.name}`;
+        video.src = `./videos/${obj.material.name.replace(/\.mp4.+$/, '.mp4')}`;
         const videoTexture = new VideoTexture(video)
         videoTexture.flipY = false;
         videoTexture.wrapS = RepeatWrapping;
