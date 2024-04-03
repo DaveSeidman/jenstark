@@ -20,6 +20,10 @@ function Passcode({ setPasscode }) {
     }
 
     setPasscode(passcodes[Object.keys(passcodes)[passCodeIndex]].name);
+    if (location.search.toLocaleLowerCase().includes('clearpasscode')) {
+      // location.search = '';
+      history.pushState(null, '', '/');
+    }
     localStorage.setItem('passcode', passcode);
   }
 
