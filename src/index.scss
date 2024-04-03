@@ -41,7 +41,7 @@ $yellow: rgb(245, 234, 30);
 $maxWidth: 1200px;
 $minWidth: 720px;
 
-html, body {
+html, body, #root, .app {
   width: 100%;
   padding: 0;
   margin: 0;
@@ -50,6 +50,13 @@ html, body {
   font-size: 14px;
   overscroll-behavior: none;
   scroll-behavior: smooth;
+
+  .app {
+    position: fixed;
+    &.locked {
+      overflow: hidden !important;
+    }
+  }
   // #root, .app {
   //   width: 100%;
   //   overflow-x: hidden;

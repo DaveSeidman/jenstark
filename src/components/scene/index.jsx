@@ -56,7 +56,7 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded }) 
   return (
     <Canvas
       className='scene'
-      performance={{ min: 0.5 }}
+      performance={{ min: 0.5 }} // TODO: test this on mobile
       dpr={dpr}
       // shadows
       // shadowMap

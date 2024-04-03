@@ -28,50 +28,42 @@ function App() {
   const lookAhead = 0.005;
 
   return (
-    <div className="app">
-      {passcode || location.hostname === 'localhost' ?
-        (
-          <>
-            <Scene
-              overview={overview}
-              scrollPercent={scrollPercent}
-              lookAhead={lookAhead}
-              setLoaded={setLoaded}
-            ></Scene>
-            <Carousel
-              lookAhead={lookAhead}
-              scrollPercent={scrollPercent}
-              setScrollPercent={setScrollPercent}
-              carouselPage={carouselPage}
-              setCarouselPage={setCarouselPage}
-              pages={pages}
-            />
-            <button
-              type="button"
-              className="map"
-              onClick={() => { setOverview((prevOverview) => !prevOverview); }}
-            ><img src={overview ? icon3D : icon2D} /></button>
-            <Progress
-              scrollPercent={scrollPercent}
-              setScrollPercent={setScrollPercent}
-              setCarouselPage={setCarouselPage}
-            ></Progress>
-            <a className="scrollHint" href="#nav"><img src={downArrow} />More Below<img src={downArrow} /></a>
-            <Nav />
-            <Experience />
-            <Artist />
-            <VideoBreak />
-            <Alloy />
-            <Venue />
-            <Opportunities />
-            <VideoCover loaded={loaded} />
-          </>
-        ) :
-        (
-          <Passcode setPasscode={setPasscode} />
-        )
-      }
-      < p className="version">{`version: ${version}`}</p>
+    <div className={`app ${passcode ? '' : 'locked'}`}>
+      <Scene
+        overview={overview}
+        scrollPercent={scrollPercent}
+        lookAhead={lookAhead}
+        setLoaded={setLoaded}
+      ></Scene>
+      <Carousel
+        lookAhead={lookAhead}
+        scrollPercent={scrollPercent}
+        setScrollPercent={setScrollPercent}
+        carouselPage={carouselPage}
+        setCarouselPage={setCarouselPage}
+        pages={pages}
+      />
+      <button
+        type="button"
+        className="map"
+        onClick={() => { setOverview((prevOverview) => !prevOverview); }}
+      ><img src={overview ? icon3D : icon2D} /></button>
+      <Progress
+        scrollPercent={scrollPercent}
+        setScrollPercent={setScrollPercent}
+        setCarouselPage={setCarouselPage}
+      ></Progress>
+      <a className="scrollHint" href="#nav"><img src={downArrow} />More Below<img src={downArrow} /></a>
+      <Nav />
+      <Experience />
+      <Artist />
+      <VideoBreak />
+      <Alloy />
+      <Venue />
+      <Opportunities />
+      <VideoCover loaded={loaded} />
+      {!passcode && (<Passcode setPasscode={setPasscode} />)}
+      < p className="version">{`version: ${version} | ${passcode}`}</p>
     </div >
   );
 }
