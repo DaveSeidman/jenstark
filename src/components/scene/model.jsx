@@ -7,6 +7,7 @@ import sceneFile from '../../assets/models/scene.glb';
 function Model({ triggerPlayback }) {
   // Ask GPT if we should move the gltf loading outside of here
   const gltf = useGLTF(sceneFile);
+  const alloySign = gltf.scene.getObjectByName('alloy')
   const videoTextures = useRef({})
   // const videosStarted = useRef(false);
   const mixers = useRef([]);
@@ -48,7 +49,7 @@ function Model({ triggerPlayback }) {
       }
 
       if (obj.isLight) {
-        // obj.distance = 20;
+        obj.distance = 5;
         obj.castShadow = true;
       }
 
@@ -66,8 +67,8 @@ function Model({ triggerPlayback }) {
         // obj.castShadow = true;
         // obj.smoothness = 5
         obj.material = new MeshStandardMaterial({
-          // color: obj.material.color,
-          color: 0x222222,
+          color: obj.material.color,
+          // color: 0x222222,
           // envMapIntensity: 0,
           roughness: 0,
           // metalness: 0,
@@ -112,6 +113,8 @@ function Model({ triggerPlayback }) {
     Object.keys(videoTextures.current).forEach(name => {
       videoTextures.current[name].update();
     })
+
+    alloySign.rotation.y += .005;
 
     mixers.current.forEach(mixer => {
       mixer.update(delta)
