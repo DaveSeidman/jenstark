@@ -77,7 +77,7 @@ function Model() {
         video.setAttribute('playsinline', true);
         video.setAttribute('muted', true);
         video.setAttribute('loop', true);
-        video.src = `${location.pathname}/${obj.material.name}`;
+        video.src = `./videos/${obj.material.name}`;
         const videoTexture = new VideoTexture(video)
         videoTexture.flipY = false;
         videoTexture.wrapS = RepeatWrapping;

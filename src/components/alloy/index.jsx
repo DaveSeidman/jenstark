@@ -34,7 +34,7 @@ function Alloy() {
             <div
               key={image}
               className={`alloy-carousel-image ${index === currentIndex ? '' : 'hidden'}`}
-              style={{ backgroundImage: `url('${location.pathname}/alloy/${image}'` }}></div>
+              style={{ backgroundImage: `url('./alloy/${image}'` }}></div>
           ))
         }
       </div>
