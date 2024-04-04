@@ -68,9 +68,9 @@ function Carousel({ pages, scrollPercent, setScrollPercent, carouselPage, setCar
           })
         }
       </div>
-      <div className={`carousel-start ${scrollPercent < .01 ? '' : 'hidden'}`}>
+      {/* <div className={`carousel-start ${scrollPercent < .01 ? '' : 'hidden'}`}>
         <button onClick={scrollToFirstPage}>Click to Enter</button>
-      </div>
+      </div> */}
       <div className={`carousel-hint ${scrollHint ? '' : 'hidden'}`}>
         Scroll To Continue
       </div>

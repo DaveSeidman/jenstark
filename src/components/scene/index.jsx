@@ -1,10 +1,11 @@
 import React, { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ShaderMaterial, Vector2, NoToneMapping, LinearToneMapping, ReinhardToneMapping, CineonToneMapping, ACESFilmicToneMapping, CustomToneMapping } from 'three';
-import { Bloom, DepthOfField, ChromaticAberration, EffectComposer, Noise, Vignette, SSR } from '@react-three/postprocessing'
+import { Bloom, SSAO, DepthOfField, ChromaticAberration, EffectComposer, Noise, Vignette, SSR } from '@react-three/postprocessing'
 import { Environment, Html, PerspectiveCamera, Plane, Sphere, Box, RoundedBox, useProgress } from '@react-three/drei';
 import envFile from '../../assets/images/metro_noord_4k.hdr';
 import { TourCamera, OverviewCamera } from '../scene/cameras';
+// import { BlendFunction } from 'postprocessing'
 
 import Model from '../scene/model'
 import './index.scss';
@@ -61,9 +62,9 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
       // shadowMap
       gl={{
         logarithmicDepthBuffer: true,
-        antialias: false,
-        stencil: false,
-        depth: false,
+        // antialias: false,
+        // stencil: false,
+        // depth: false,
         toneMapping: LinearToneMapping,
         toneMappingExposure: .5
       }}
@@ -77,8 +78,9 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
       <Suspense fallback={<Loader setLoaded={setLoaded} />}>
         <Model triggerPlayback={triggerPlayback} />
       </Suspense>
-      <EffectComposer disableNormalPass>
+      <EffectComposer dis>
         <SSR {...props} />
+
         <Bloom
           mipmapBlur={true}
           intensity={1.5}
@@ -86,6 +88,19 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
           luminanceSmoothing={1.25}
           luminanceThreshold={.95}
         />
+        {/* <SSAO
+          blendFunction={4} // blend mode
+          samples={32} // amount of samples per pixel (shouldn't be a multiple of the ring count)
+          rings={2} // amount of rings in the occlusion sampling pattern
+          distanceThreshold={.5} // global distance threshold at which the occlusion effect starts to fade out. min: 0, max: 1
+          distanceFalloff={0.5} // distance falloff. min: 0, max: 1
+          rangeThreshold={0.15} // local occlusion range threshold at which the occlusion starts to fade out. min: 0, max: 1
+          rangeFalloff={0.9} // occlusion range falloff. min: 0, max: 1
+          luminanceInfluence={0.2} // how much the luminance of the scene influences the ambient occlusion
+          radius={2} // occlusion sampling radius
+          scale={2} // scale of the ambient occlusion
+          bias={0.83} // occlusion bias
+        /> */}
         <Vignette />
       </EffectComposer>
     </Canvas>
