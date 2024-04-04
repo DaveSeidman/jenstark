@@ -26,6 +26,7 @@ function App() {
   const [carouselPage, setCarouselPage] = useState(0);
   const [passcode, setPasscode] = useState(null);
   const [triggerPlayback, setTriggerPlayback] = useState(false);
+  const [scrollHint, setScrollHint] = useState(false);
   const lookAhead = 0.005;
 
   const clicked = () => {
@@ -53,6 +54,7 @@ function App() {
         setScrollPercent={setScrollPercent}
         carouselPage={carouselPage}
         setCarouselPage={setCarouselPage}
+        scrollHint={scrollHint}
         pages={pages}
       />
       <button
@@ -73,7 +75,7 @@ function App() {
       <Alloy />
       <Venue />
       <Opportunities />
-      <VideoCover loaded={loaded} />
+      <VideoCover loaded={loaded} setScrollHint={setScrollHint} />
       {!passcode && (<Passcode setPasscode={setPasscode} />)}
       < p className="version">{`version: ${version} | ${passcode}`}</p>
     </div >

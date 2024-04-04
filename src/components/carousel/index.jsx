@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
 
-function Carousel({ pages, scrollPercent, setScrollPercent, carouselPage, setCarouselPage }) {
+function Carousel({ pages, scrollPercent, scrollHint, setScrollPercent, carouselPage, setCarouselPage }) {
   const pagesRef = useRef();
 
-  const [scrollHint, setScrollHint] = useState(false);
+  // const [scrollHint, setScrollHint] = useState(false);
 
   const scroll = ({ target }) => {
     const { scrollTop, scrollHeight } = target;
@@ -25,13 +25,6 @@ function Carousel({ pages, scrollPercent, setScrollPercent, carouselPage, setCar
     setTimeout(() => {
       setCarouselPage(0);
     })
-    setTimeout(() => {
-      setScrollHint(true);
-    }, 500);
-
-    setTimeout(() => {
-      setScrollHint(false);
-    }, 3500);
   }
 
   useEffect(() => {
