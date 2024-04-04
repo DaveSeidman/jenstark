@@ -50,7 +50,7 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
     thickness: 10,
     ior: 1.5
   }
-  const [dpr, setDpr] = useState(1)
+  const [dpr, setDpr] = useState(1.0)
 
   return (
     <Canvas
@@ -86,7 +86,6 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
           luminanceSmoothing={1.25}
           luminanceThreshold={.95}
         />
-        {/* <ChromaticAberration offset={new Vector2(.0015, 0)} /> */}
         <Vignette />
       </EffectComposer>
     </Canvas>

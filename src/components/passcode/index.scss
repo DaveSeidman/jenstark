@@ -29,13 +29,15 @@
 
     &-form {
       // pointer-events: all;
+      display: flex;
+      // justify-content: center;
       &-input {
         font-family: 'Warsaw Gothic';
         font-size: 3rem;
         text-align: center;
         color: $purple;
         outline: 0;
-
+        max-width: 12rem;
         text-transform: uppercase;
         margin-right: .25rem;
         border: 5px solid white;
@@ -43,9 +45,8 @@
       }
 
       &-submit {
-        padding: .35rem .75rem;
+        padding: .35rem 1rem !important;
         outline: none;
-
       }
     }
   }

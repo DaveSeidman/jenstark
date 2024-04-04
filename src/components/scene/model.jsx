@@ -78,21 +78,21 @@ function Model({ triggerPlayback }) {
       }
 
 
-      if (obj.material?.name.includes('mp4') && !videoTextures.current[obj.material.name]) {
-        const video = document.createElement('video');
-        video.setAttribute('autoplay', true);
-        video.setAttribute('playsinline', true);
-        video.setAttribute('muted', true);
-        video.setAttribute('loop', true);
-        video.src = `./videos/${obj.material.name.replace(/\.mp4.+$/, '.mp4')}`;
-        const videoTexture = new VideoTexture(video)
-        videoTexture.flipY = false;
-        videoTexture.wrapS = RepeatWrapping;
-        videoTextures.current[obj.material.name] = videoTexture;
-        obj.material.map = videoTexture;
-        obj.material.emissiveMap = videoTexture;
-        // obj.material.emissiveIntensity = .75;
-      }
+      // if (obj.material?.name.includes('mp4') && !videoTextures.current[obj.material.name]) {
+      //   const video = document.createElement('video');
+      //   video.setAttribute('autoplay', true);
+      //   video.setAttribute('playsinline', true);
+      //   video.setAttribute('muted', true);
+      //   video.setAttribute('loop', true);
+      //   video.src = `./videos/${obj.material.name.replace(/\.mp4.+$/, '.mp4')}`;
+      //   const videoTexture = new VideoTexture(video)
+      //   videoTexture.flipY = false;
+      //   videoTexture.wrapS = RepeatWrapping;
+      //   videoTextures.current[obj.material.name] = videoTexture;
+      //   obj.material.map = videoTexture;
+      //   obj.material.emissiveMap = videoTexture;
+      //   // obj.material.emissiveIntensity = .75;
+      // }
     });
 
     addEventListener('click', startVideos);
