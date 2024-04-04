@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
 
-function Carousel({ pages, scrollPercent, scrollHint, setScrollPercent, carouselPage, setCarouselPage }) {
+function Carousel({ pages, scrollPercent, scrollHint, setScrollHint, setScrollPercent, carouselPage, setCarouselPage }) {
   const pagesRef = useRef();
 
   // const [scrollHint, setScrollHint] = useState(false);
 
   const scroll = ({ target }) => {
+    setScrollHint(false);
     const { scrollTop, scrollHeight } = target;
     const { height } = target.getBoundingClientRect();
     const nextScrollPercent = (scrollTop / (scrollHeight - height));

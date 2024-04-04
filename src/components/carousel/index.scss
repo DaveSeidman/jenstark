@@ -9,7 +9,7 @@
   }
 
   &-pages {
-    touch-action: none;
+    // touch-action: none;
     position: absolute;
     inset: 0;
     overflow-x: hidden;
@@ -50,11 +50,14 @@
 
   &-hint {
     color: white;
-    border: 1.5px solid white;
-    border-radius: 1rem;
-    padding: .5rem 2rem;
+    // border: 1.5px solid white;
+    // border-radius: 1rem;
+    padding: .5rem 2rem .4rem;
     font-size: 2rem;
     font-family: 'Warsaw Gothic';
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, .2);
+    backdrop-filter: blur(.5rem);
   }
 
 

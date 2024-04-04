@@ -1,6 +1,6 @@
 {
   "name": "jenstark",
-  "version": "0.0.79",
+  "version": "0.0.80",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@react-three/drei": "9.17.1",
+    "@react-three/drei": "^9.105.1",
     "@react-three/fiber": "8.2.0",
     "@react-three/postprocessing": "^2.6.1",
     "@vitejs/plugin-react": "^4.2.1",

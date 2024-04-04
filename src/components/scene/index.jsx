@@ -2,7 +2,7 @@ import React, { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ShaderMaterial, Vector2, NoToneMapping, LinearToneMapping, ReinhardToneMapping, CineonToneMapping, ACESFilmicToneMapping, CustomToneMapping } from 'three';
 import { Bloom, SSAO, DepthOfField, ChromaticAberration, EffectComposer, Noise, Vignette, SSR } from '@react-three/postprocessing'
-import { Environment, Html, PerspectiveCamera, Plane, Sphere, Box, RoundedBox, useProgress } from '@react-three/drei';
+import { Environment, Html, PerspectiveCamera, Plane, Sphere, Box, RoundedBox, useProgress, PerformanceMonitor } from '@react-three/drei';
 import envFile from '../../assets/images/metro_noord_4k.hdr';
 import { TourCamera, OverviewCamera } from '../scene/cameras';
 // import { BlendFunction } from 'postprocessing'
@@ -10,17 +10,18 @@ import { TourCamera, OverviewCamera } from '../scene/cameras';
 import Model from '../scene/model'
 import './index.scss';
 
-function Loader({ setLoaded }) {
+function Loader({ setLoaded, setAmountLoaded }) {
   const { progress } = useProgress();
+  setAmountLoaded(progress);
   if (progress === 100) setLoaded(true);
-  return (
-    <Html className="preloader">
-      <h1>{`Loading... ${Math.round(progress)}%`}</h1>
-    </Html>
+  return (<></>
+    // <Html className="preloader">
+    //   <h1>{`Loading... ${Math.round(progress)}%`}</h1>
+    // </Html>
   );
 }
 
-function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback }) {
+function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback, setAmountLoaded }) {
   const props = {
     temporalResolve: true,
     STRETCH_MISSED_RAYS: true,
@@ -54,41 +55,43 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
   const [dpr, setDpr] = useState(1.0)
 
   return (
-    <Canvas
-      className='scene'
-      performance={{ min: 0.5 }} // TODO: test this on mobile
-      dpr={dpr}
-      // shadows
-      // shadowMap
-      gl={{
-        logarithmicDepthBuffer: true,
-        // antialias: false,
-        // stencil: false,
-        // depth: false,
-        toneMapping: LinearToneMapping,
-        toneMappingExposure: .5
-      }}
+    <Suspense
+      fallback={<Loader setLoaded={setLoaded} setAmountLoaded={setAmountLoaded} />}
     >
-      {/* <fog attach="fog" args={['black', 20, 100]} /> */}
-      <ambientLight intensity={0.5} />
-      {/* <PerformanceMonitorApi onIncline={() => setDpr(2)} onDecline={() => setDpr(1)} ></PerformanceMonitorApi> */}
-      <TourCamera makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} />
-      <OverviewCamera makeDefault={overview} />
-      <Environment files={envFile} background={false} intensity={1} />
-      <Suspense fallback={<Loader setLoaded={setLoaded} />}>
-        <Model triggerPlayback={triggerPlayback} />
-      </Suspense>
-      <EffectComposer dis>
-        <SSR {...props} />
+      <Canvas
+        className='scene'
+        performance={{ min: 0.5 }} // TODO: test this on mobile
+        dpr={dpr}
+        // shadows
+        // shadowMap
+        gl={{
+          logarithmicDepthBuffer: true,
+          // antialias: false,
+          // stencil: false,
+          // depth: false,
+          toneMapping: LinearToneMapping,
+          toneMappingExposure: .5
+        }}
+      >
+        <PerformanceMonitor onIncline={() => setDpr(1)} onDecline={() => setDpr(0.5)} />
 
-        <Bloom
-          mipmapBlur={true}
-          intensity={1.5}
-          kernalSize={2}
-          luminanceSmoothing={1.25}
-          luminanceThreshold={.95}
-        />
-        {/* <SSAO
+        {/* <fog attach="fog" args={['black', 20, 100]} /> */}
+        <ambientLight intensity={0.5} />
+        {/* <PerformanceMonitorApi onIncline={() => setDpr(2)} onDecline={() => setDpr(1)} ></PerformanceMonitorApi> */}
+        <TourCamera makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} />
+        <OverviewCamera makeDefault={overview} />
+        <Environment files={envFile} background={false} intensity={1} />
+        <Model triggerPlayback={triggerPlayback} />
+        <EffectComposer disableNormalPass>
+          <SSR {...props} />
+          <Bloom
+            mipmapBlur={true}
+            intensity={1.5}
+            kernalSize={2}
+            luminanceSmoothing={1.25}
+            luminanceThreshold={.95}
+          />
+          {/* <SSAO
           blendFunction={4} // blend mode
           samples={32} // amount of samples per pixel (shouldn't be a multiple of the ring count)
           rings={2} // amount of rings in the occlusion sampling pattern
@@ -101,9 +104,10 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
           scale={2} // scale of the ambient occlusion
           bias={0.83} // occlusion bias
         /> */}
-        <Vignette />
-      </EffectComposer>
-    </Canvas>
+          <Vignette />
+        </EffectComposer>
+      </Canvas>
+    </Suspense>
   )
 }
 

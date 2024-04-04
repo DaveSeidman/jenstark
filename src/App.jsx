@@ -27,6 +27,7 @@ function App() {
   const [passcode, setPasscode] = useState(null);
   const [triggerPlayback, setTriggerPlayback] = useState(false);
   const [scrollHint, setScrollHint] = useState(false);
+  const [amountLoaded, setAmountLoaded] = useState(0)
   const lookAhead = 0.005;
 
   const clicked = () => {
@@ -47,6 +48,7 @@ function App() {
         lookAhead={lookAhead}
         setLoaded={setLoaded}
         triggerPlayback={triggerPlayback}
+        setAmountLoaded={setAmountLoaded}
       ></Scene>
       <Carousel
         lookAhead={lookAhead}
@@ -55,6 +57,7 @@ function App() {
         carouselPage={carouselPage}
         setCarouselPage={setCarouselPage}
         scrollHint={scrollHint}
+        setScrollHint={setScrollHint}
         pages={pages}
       />
       <button
@@ -76,6 +79,9 @@ function App() {
       <Venue />
       <Opportunities />
       <VideoCover loaded={loaded} setScrollHint={setScrollHint} />
+      {amountLoaded < 100 && (<div className="preload">
+        <h1>{`Loading... ${Math.round(amountLoaded)}%`}</h1>
+      </div>)}
       {!passcode && (<Passcode setPasscode={setPasscode} />)}
       < p className="version">{`version: ${version} | ${passcode}`}</p>
     </div >
