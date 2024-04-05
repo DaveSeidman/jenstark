@@ -9,9 +9,11 @@
   }
 
   &-pages {
-    // touch-action: none;
+    touch-action: none;
     position: absolute;
     inset: 0;
+    // overflow: hidden;
+    // over;
     overflow-x: hidden;
     overflow-y: scroll;
 
@@ -27,7 +29,9 @@
     }
   }
 
-  &-start, &-hint, &-restart {
+
+  .scroll-hint, .continue-hint {
+  // &-start, &-hint, &-restart {
     // background: $purple;
     position: absolute;
     top: 50%;
@@ -60,5 +64,13 @@
     backdrop-filter: blur(.5rem);
   }
 
+    &-restart {
+      display: flex;
+      flex-direction: column;
+
+      button {
+        margin: 1rem;
+      }
+    }
 
 }

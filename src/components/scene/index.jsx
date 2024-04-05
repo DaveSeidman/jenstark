@@ -21,7 +21,7 @@ function Loader({ setLoaded, setAmountLoaded }) {
   );
 }
 
-function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback, setAmountLoaded }) {
+function Scene({ jump, returnToLounge, setReturnToLounge, overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback, setAmountLoaded }) {
   const props = {
     temporalResolve: true,
     STRETCH_MISSED_RAYS: true,
@@ -78,11 +78,11 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
         {/* <fog attach="fog" args={['black', 20, 100]} /> */}
         <ambientLight intensity={0.5} />
         {/* <PerformanceMonitorApi onIncline={() => setDpr(2)} onDecline={() => setDpr(1)} ></PerformanceMonitorApi> */}
-        <TourCamera makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} />
+        <TourCamera jump={jump} makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} returnToLounge={returnToLounge} setReturnToLounge={setReturnToLounge} />
         <OverviewCamera makeDefault={overview} />
         <Environment files={envFile} background={false} intensity={1} />
         <Model triggerPlayback={triggerPlayback} />
-        <EffectComposer disableNormalPass>
+        {dpr >= 1 && (<EffectComposer disableNormalPass>
           <SSR {...props} />
           <Bloom
             mipmapBlur={true}
@@ -105,7 +105,7 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
           bias={0.83} // occlusion bias
         /> */}
           <Vignette />
-        </EffectComposer>
+        </EffectComposer>)}
       </Canvas>
     </Suspense>
   )

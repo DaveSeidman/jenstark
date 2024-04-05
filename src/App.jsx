@@ -22,13 +22,15 @@ import { version } from '../package.json';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [overview, setOverview] = useState(false);
-  const [scrollPercent, setScrollPercent] = useState(0);
+  const [scrollPercent, setScrollPercent] = useState(1000.15);
   const [carouselPage, setCarouselPage] = useState(0);
   const [passcode, setPasscode] = useState(null);
   const [triggerPlayback, setTriggerPlayback] = useState(false);
   const [scrollHint, setScrollHint] = useState(false);
   const [amountLoaded, setAmountLoaded] = useState(0)
-  const lookAhead = 0.005;
+  const [returnToLounge, setReturnToLounge] = useState(false);
+  const [jump, setJump] = useState(false);
+  const lookAhead = 0.001;
 
   const clicked = () => {
     setTriggerPlayback(true);
@@ -49,8 +51,13 @@ function App() {
         setLoaded={setLoaded}
         triggerPlayback={triggerPlayback}
         setAmountLoaded={setAmountLoaded}
+        returnToLounge={returnToLounge}
+        setReturnToLounge={setReturnToLounge}
+        jump={jump}
       ></Scene>
       <Carousel
+        jump={jump}
+        setJump={setJump}
         lookAhead={lookAhead}
         scrollPercent={scrollPercent}
         setScrollPercent={setScrollPercent}
@@ -58,6 +65,7 @@ function App() {
         setCarouselPage={setCarouselPage}
         scrollHint={scrollHint}
         setScrollHint={setScrollHint}
+        setReturnToLounge={setReturnToLounge}
         pages={pages}
       />
       <button
