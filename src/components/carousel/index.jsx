@@ -4,7 +4,6 @@ import './index.scss';
 function Carousel({ setCamRotation, pages, scrollHint, setScrollHint, scrollPercent, setScrollPercent, carouselPage, setCarouselPage }) {
   const pagesRef = useRef();
   const prevCarouselPage = useRef();
-  const [continueHint, setContinueHint] = useState(false);
   const pointer = useRef({ down: false })
 
   const scroll = (e) => {
@@ -25,8 +24,6 @@ function Carousel({ setCamRotation, pages, scrollHint, setScrollHint, scrollPerc
     setScrollPercent((prevScrollPercent) => prevScrollPercent + (pages[carouselPage].percent / 10))
     prevCarouselPage.current = carouselPage;
   }, [carouselPage])
-
-
   const pointerdown = (e) => {
     pointer.current.down = true;
     pointer.current.x = e.clientX;
@@ -44,8 +41,9 @@ function Carousel({ setCamRotation, pages, scrollHint, setScrollHint, scrollPerc
           x: e.clientX - pointer.current.x,
           y: e.clientY - pointer.current.y
         }
-
-        setCamRotation((prevCamRotation) => prevCamRotation + (offset.x / 400));
+        setCamRotation((prevCamRotation) =>
+          Math.abs(offset.y) > 5 ? 0 : prevCamRotation + (offset.x / 400)
+        );
 
         setScrollPercent((prevScrollPercent) => {
           let nextScrollPercent = prevScrollPercent + (offset.y / 4000);
@@ -83,9 +81,6 @@ function Carousel({ setCamRotation, pages, scrollHint, setScrollHint, scrollPerc
       </div>
       <div className={`scroll-hint ${scrollHint ? '' : 'hidden'}`}>
         Scroll To Continue
-      </div>
-      <div className={`continue-hint ${continueHint ? '' : 'hidden'}`}>
-        Continue Below
       </div>
     </div>
   );

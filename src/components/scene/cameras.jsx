@@ -8,6 +8,7 @@ const curve = new CatmullRomCurve3(points.map((p) => new Vector3(p.x, p.y, p.z))
 const lookAtTarget = new Vector3();
 const positionTarget = new Vector3();
 const lookAt = new Vector3();
+
 export function TourCamera({ camRotation, makeDefault, scrollPercent, lookAhead, returnToLounge, setReturnToLounge }) {
   const [containerPosition, setContainerPosition] = useState([0, 0, 0]);
   const progress = useRef(100.15);
@@ -18,13 +19,23 @@ export function TourCamera({ camRotation, makeDefault, scrollPercent, lookAhead,
   const rotationTarget = useRef(new Vector2());
   const rotationTarget2 = useRef(new Vector2());
   const drag = useRef(false);
+  const framesWithMotion = useRef(0);
 
   useFrame(() => {
-    progress.current += (scrollPercent - progress.current) / 20
+    // if (Math.abs(scrollPercent - progress.current) > .025) {
+    //   framesWithMotion.current += 1;
+    // }
+    // else {
+    //   framesWithMotion.current -= framesWithMotion.current > 0 ? 1 : 0;
+    // }
+    progress.current += (scrollPercent - progress.current) / 20;
+    // console.log(Math.abs(scrollPercent - progress.current), framesWithMotion.current);
     curve.getPoint(progress.current % 1, positionTarget);
     curve.getPoint((progress.current + lookAhead) % 1, lookAtTarget);
     containerRef.current.position.copy(positionTarget)
     containerRef.current.lookAt(lookAtTarget);
+
+    // if(framesWithMotion.current > 5) setCamRotation(0); 
     cameraRef.current.rotation.y += (camRotation - cameraRef.current.rotation.y) / 20;
   });
 
