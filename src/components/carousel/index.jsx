@@ -33,8 +33,14 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
 
   // TODO: fix this
   useEffect(() => {
-    setScrollPercent((prevScrollPercent) => prevScrollPercent + (pages[carouselPage].percent / 10))
-    prevCarouselPage.current = carouselPage;
+    setScrollPercent((prevScrollPercent) => {
+      // console.log(prevScrollPercent % 1, pages[carouselPage].percent)
+      const dist = pages[carouselPage].percent - (prevScrollPercent % 1)
+      let nextScrollPercent = prevScrollPercent - dist;
+      return nextScrollPercent
+    })
+    // setScrollPercent((prevScrollPercent) => prevScrollPercent + (pages[carouselPage].percent / 10))
+    // prevCarouselPage.current = carouselPage;
   }, [carouselPage])
 
   const pointerdown = (e) => {

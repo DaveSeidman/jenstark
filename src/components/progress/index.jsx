@@ -17,7 +17,7 @@ function Progress({ scrollPercent, setCarouselPage }) {
   return (
     <div className="progress">
       <div className="progress-bar"
-        style={{ width: `${scrollPercent * 100}%` }}
+        style={{ width: `${(1 - (scrollPercent % 1)) * 100}%` }}
       ></div>
       <div className="progress-labels">
         {pages.map((page, index) => (<span
