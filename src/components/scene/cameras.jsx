@@ -8,11 +8,9 @@ const curve = new CatmullRomCurve3(points.map((p) => new Vector3(p.x, p.y, p.z))
 const lookAtTarget = new Vector3();
 const positionTarget = new Vector3();
 const lookAt = new Vector3();
-export function TourCamera({ jump, makeDefault, scrollPercent, lookAhead, returnToLounge, setReturnToLounge }) {
-
-
+export function TourCamera({ camRotation, makeDefault, scrollPercent, lookAhead, returnToLounge, setReturnToLounge }) {
   const [containerPosition, setContainerPosition] = useState([0, 0, 0]);
-  const progress = useRef(1000.15);
+  const progress = useRef(100.15);
   const { gl } = useThree();
   const containerRef = useRef();
   const cameraRef = useRef();
@@ -21,33 +19,13 @@ export function TourCamera({ jump, makeDefault, scrollPercent, lookAhead, return
   const rotationTarget2 = useRef(new Vector2());
   const drag = useRef(false);
 
-  // useHelper(cameraRef, makeDefault ? AxesHelper : CameraHelper, 'cyan');
   useFrame(() => {
-    // if (jump) {
-    //   console.log('jumping');
-    //   progress.current = scrollPercent;
-    // } else {
-    // progress.current = scrollPercent;
-    // progress.current += ((scrollPercent * (1 - (lookAhead * 2))) - progress.current) / 20;
     progress.current += (scrollPercent - progress.current) / 20
-    // }
-    // const { x, y, z } = curve.getPoint(progress.current);
     curve.getPoint(progress.current % 1, positionTarget);
     curve.getPoint((progress.current + lookAhead) % 1, lookAtTarget);
-    // lookAt.x += (lookAtTarget.x - lookAt.x) / 10;
-    // lookAt.y += (lookAtTarget.y - lookAt.y) / 10;
-    // lookAt.z += (lookAtTarget.z - lookAt.z) / 10;
-    // setContainerPosition([x, y, z]);
-    // setContainerPo
     containerRef.current.position.copy(positionTarget)
     containerRef.current.lookAt(lookAtTarget);
-    // cameraRef.current.rotation.x += (rotationTarget.current.x - cameraRef.current.rotation.x) / 20;
-    // cameraRef.current.rotation.y += ((rotationTarget.current.y + rotationTarget2.current.y) - cameraRef.current.rotation.y) / 20;
-    // cameraRef.current.rotation.x += (rotationTarget2.current.x - cameraRef.current.rotation.x) / 20;
-    // cameraRef.current.rotation.y = rotationTarget.current.y;
-    // cameraRef.current.rotation.x = rotationTarget.current.x;
-    // coneRef.current.rotation.z = rotationTarget.current.x;
-    // coneRef.current.rotation.y = rotationTarget.current.x;
+    cameraRef.current.rotation.y += (camRotation - cameraRef.current.rotation.y) / 20;
   });
 
   const pointerDown = (e) => {
@@ -67,7 +45,6 @@ export function TourCamera({ jump, makeDefault, scrollPercent, lookAhead, return
     const { width, height } = gl.domElement.getBoundingClientRect();
 
     if (drag.current) {
-
       rotationTarget.current.x += ((clientY / height) - pointerTarget.current.x) * 4;
       rotationTarget.current.y += ((clientX / width) - pointerTarget.current.y) * 4;
     }

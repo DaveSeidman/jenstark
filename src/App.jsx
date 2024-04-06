@@ -22,7 +22,8 @@ import { version } from '../package.json';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [overview, setOverview] = useState(false);
-  const [scrollPercent, setScrollPercent] = useState(1000.15);
+  const [scrollPercent, setScrollPercent] = useState(100.15);
+  const [camRotation, setCamRotation] = useState(0);
   const [carouselPage, setCarouselPage] = useState(0);
   const [passcode, setPasscode] = useState(null);
   const [triggerPlayback, setTriggerPlayback] = useState(false);
@@ -73,6 +74,7 @@ function App() {
         setAmountLoaded={setAmountLoaded}
         returnToLounge={returnToLounge}
         setReturnToLounge={setReturnToLounge}
+        camRotation={camRotation}
       ></Scene>
       <Carousel
         lookAhead={lookAhead}
@@ -83,6 +85,7 @@ function App() {
         scrollHint={scrollHint}
         setScrollHint={setScrollHint}
         scrolledPage={setScrolledPage}
+        setCamRotation={setCamRotation}
         pages={pages}
       />
       <button

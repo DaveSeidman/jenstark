@@ -29,10 +29,14 @@
       font-size: 6rem;
       text-shadow: 0 .25rem .25rem rgba(0, 0, 0, .5);
       text-align: center;
+    }
+
+    h1 {
       word-spacing: .75rem;
     }
 
     p {
+      margin: .25rem;
       font-family: 'Warsaw Gothic';
       font-size: 3rem;
       text-transform: uppercase;

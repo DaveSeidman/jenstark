@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
 
-function Carousel({ pages, scrollHint, setScrollHint, scrollPercent, setScrollPercent, carouselPage, setCarouselPage }) {
+function Carousel({ setCamRotation, pages, scrollHint, setScrollHint, scrollPercent, setScrollPercent, carouselPage, setCarouselPage }) {
   const pagesRef = useRef();
   const prevCarouselPage = useRef();
   const [continueHint, setContinueHint] = useState(false);
@@ -12,11 +12,15 @@ function Carousel({ pages, scrollHint, setScrollHint, scrollPercent, setScrollPe
     e.stopPropagation();
     setScrollPercent((prevScrollPercent) => {
       let nextScrollPercent = prevScrollPercent + (e.deltaY / -20000);
+      // TODO: this should be the correct method but causes a bounce in the TourCamera
+      // so instead we're setting the initial scroll percent high
+      // if (nextScrollPercent <= 0) nextScrollPercent += 1;
       return nextScrollPercent;
     })
     setScrollHint(false);
   }
 
+  // TODO: fix this
   useEffect(() => {
     setScrollPercent((prevScrollPercent) => prevScrollPercent + (pages[carouselPage].percent / 10))
     prevCarouselPage.current = carouselPage;
@@ -40,6 +44,8 @@ function Carousel({ pages, scrollHint, setScrollHint, scrollPercent, setScrollPe
           x: e.clientX - pointer.current.x,
           y: e.clientY - pointer.current.y
         }
+
+        setCamRotation((prevCamRotation) => prevCamRotation + (offset.x / 400));
 
         setScrollPercent((prevScrollPercent) => {
           let nextScrollPercent = prevScrollPercent + (offset.y / 4000);
