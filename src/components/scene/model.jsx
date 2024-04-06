@@ -72,10 +72,10 @@ function Model({ triggerPlayback }) {
       }
     });
 
-    // addEventListener('click', startVideos);
+    addEventListener('click', startVideos);
 
     return () => {
-      // removeEventListener('click', startVideos)
+      removeEventListener('click', startVideos)
     }
   }, [])
 
