@@ -20,7 +20,7 @@ import downArrow from './assets/images/arrow.svg'
 import { version } from '../package.json';
 
 function App() {
-  const startPercent = 100.15;
+  const startPercent = 100.00;
   const [loaded, setLoaded] = useState(false);
   const [overview, setOverview] = useState(false);
   const [scrollPercent, setScrollPercent] = useState(startPercent);
