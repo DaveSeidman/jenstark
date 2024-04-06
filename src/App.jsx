@@ -20,9 +20,10 @@ import downArrow from './assets/images/arrow.svg'
 import { version } from '../package.json';
 
 function App() {
+  const startPercent = 100.15;
   const [loaded, setLoaded] = useState(false);
   const [overview, setOverview] = useState(false);
-  const [scrollPercent, setScrollPercent] = useState(100.15);
+  const [scrollPercent, setScrollPercent] = useState(startPercent);
   const [camRotation, setCamRotation] = useState(0);
   const [carouselPage, setCarouselPage] = useState(0);
   const [passcode, setPasscode] = useState(null);
@@ -31,6 +32,7 @@ function App() {
   const [amountLoaded, setAmountLoaded] = useState(0)
   const [returnToLounge, setReturnToLounge] = useState(false);
   const [scrolledPage, setScrolledPage] = useState(false);
+  const [loopedScene, setLoopedScene] = useState(false);
   const lookAhead = 0.001;
   const appRef = useRef();
   const fontSize = 14;
@@ -66,6 +68,7 @@ function App() {
       onClick={clicked}
     >
       <Scene
+        startPercent={startPercent}
         overview={overview}
         scrollPercent={scrollPercent}
         lookAhead={lookAhead}
@@ -77,6 +80,7 @@ function App() {
         camRotation={camRotation}
       ></Scene>
       <Carousel
+        startPercent={startPercent}
         lookAhead={lookAhead}
         scrollPercent={scrollPercent}
         setScrollPercent={setScrollPercent}
@@ -86,6 +90,8 @@ function App() {
         setScrollHint={setScrollHint}
         scrolledPage={setScrolledPage}
         setCamRotation={setCamRotation}
+        loopedScene={loopedScene}
+        setLoopedScene={setLoopedScene}
         pages={pages}
       />
       <button
@@ -98,7 +104,7 @@ function App() {
         setScrollPercent={setScrollPercent}
         setCarouselPage={setCarouselPage}
       ></Progress>
-      <a href="#nav"><div className="continue"><img src={downArrow} />Continue Below<img src={downArrow} /></div></a>
+      <a href="#nav"><div className={`continue ${!scrolledPage && loopedScene ? 'shake' : ''}`}><img src={downArrow} />Continue Below<img src={downArrow} /></div></a>
       <Nav />
       <Experience />
       <Artist />

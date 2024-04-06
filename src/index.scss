@@ -41,6 +41,12 @@ $yellow: rgb(245, 234, 30);
 $maxWidth: 1200px;
 $minWidth: 720px;
 
+@keyframes shake {
+  0%, 50% { transform: translateX(0); }
+  5%, 15%, 25%, 35%, 45% { transform: translateX(-10px); }
+  10%, 20%, 30%, 40% { transform: translateX(10px); }
+}
+
 html, body, #root, .app {
   width: 100%;
   padding: 0;
@@ -107,8 +113,10 @@ html, body, #root, .app {
 
   .continue {
     // display: block;
-    width: 100%;
-    padding: 0.25rem 0;
+    width: 120%;
+    left: -10%;
+    position: relative;
+    padding: 0.125rem 0 .5rem;
     border: 0;
     margin: 0;
     background: $darkpurple;
@@ -116,8 +124,14 @@ html, body, #root, .app {
     cursor: pointer;
     font-family: 'Warsaw Gothic';
     font-size: 3rem;
+    line-height: 3rem;
     text-align: center;
     text-transform: uppercase;
+
+    &.shake {
+      animation: shake 2.5s;
+      animation-iteration-count: infinite;
+    }
 
     img {
       height: 3rem;

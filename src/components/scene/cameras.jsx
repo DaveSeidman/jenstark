@@ -9,9 +9,9 @@ const lookAtTarget = new Vector3();
 const positionTarget = new Vector3();
 const lookAt = new Vector3();
 
-export function TourCamera({ camRotation, makeDefault, scrollPercent, lookAhead, returnToLounge, setReturnToLounge }) {
+export function TourCamera({ startPercent, camRotation, makeDefault, scrollPercent, lookAhead, returnToLounge, setReturnToLounge }) {
   const [containerPosition, setContainerPosition] = useState([0, 0, 0]);
-  const progress = useRef(100.15);
+  const progress = useRef(startPercent);
   const { gl } = useThree();
   const containerRef = useRef();
   const cameraRef = useRef();

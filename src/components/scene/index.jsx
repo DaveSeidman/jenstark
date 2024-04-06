@@ -17,7 +17,7 @@ import './index.scss';
 //   return (<></>);
 // }
 
-function Scene({ camRotation, returnToLounge, setReturnToLounge, overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback, setAmountLoaded }) {
+function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback, setAmountLoaded }) {
   const props = {
     temporalResolve: true,
     STRETCH_MISSED_RAYS: true,
@@ -77,7 +77,7 @@ function Scene({ camRotation, returnToLounge, setReturnToLounge, overview, scrol
 
         {/* <fog attach="fog" args={['black', 20, 100]} /> */}
         <ambientLight intensity={0.5} />
-        <TourCamera camRotation={camRotation} makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} returnToLounge={returnToLounge} setReturnToLounge={setReturnToLounge} />
+        <TourCamera startPercent={startPercent} camRotation={camRotation} makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} returnToLounge={returnToLounge} setReturnToLounge={setReturnToLounge} />
         <OverviewCamera makeDefault={overview} />
         <Environment files={envFile} background={false} intensity={1} />
         <Model triggerPlayback={triggerPlayback} />
