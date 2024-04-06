@@ -10,7 +10,6 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
   const prevCarouselPage = useRef();
   const pointer = useRef({ x: 0, y: 0, down: false })
   const prevPointer = useRef({ x: 0, y: 0 })
-  const startPercentRef = useRef(startPercent);
 
   const scroll = (e) => {
     e.preventDefault();

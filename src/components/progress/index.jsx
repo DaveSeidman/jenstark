@@ -1,18 +1,16 @@
 import React from "react";
 import './index.scss';
 import { pages } from '../../../config.json'
-
-function Progress({ scrollPercent, setScrollPercent, setCarouselPage }) {
+console.log(pages)
+function Progress({ scrollPercent, setCarouselPage }) {
 
   let activeIndex = 0;
   let closestAmount = Number.POSITIVE_INFINITY;
   pages.forEach((page, index) => {
-    if (page.visible) {
-      const disatnceToPercent = Math.abs((scrollPercent % 1) - (1 - page.percentAlongTour))
-      if (disatnceToPercent < closestAmount) {
-        closestAmount = disatnceToPercent
-        activeIndex = index
-      }
+    const dist = Math.abs((scrollPercent % 1) - (page.percent))
+    if (dist < closestAmount) {
+      closestAmount = dist
+      activeIndex = index
     }
   })
 
@@ -22,17 +20,16 @@ function Progress({ scrollPercent, setScrollPercent, setCarouselPage }) {
         style={{ width: `${scrollPercent * 100}%` }}
       ></div>
       <div className="progress-labels">
-        {pages.map((page, index) => (
-          page.visible && (<span
-            key={page.slug}
-            onClick={() => {
-              // setScrollPercent(page.percent);
-              setCarouselPage(index);
-            }}
-            className={`progress-labels-label ${activeIndex === index ? 'active' : ''}`}
-          // style={{ left: `${page.percentAlongTour * 100}%` }}
-          >{page.title}</span>)
-        ))}
+        {pages.map((page, index) => (<span
+          key={page.slug}
+          onClick={() => {
+            // setScrollPercent(page.percent);
+            setCarouselPage(index);
+          }}
+          className={`progress-labels-label ${activeIndex === index ? 'active' : ''}`}
+        // style={{ left: `${page.percent * 100}%` }}
+        >{page.title}</span>)
+        )}
       </div>
     </div>
   )

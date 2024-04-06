@@ -3,7 +3,7 @@
 .carousel {
   position: absolute;
   inset: 0;
-  height: calc(100vh - 10rem);
+  height: calc(100vh - 5rem);
   * {
     user-select: none;
   }
@@ -20,11 +20,11 @@
 
   .scroll-hint, .continue-hint {
     background: $purple;
-color: white;
-font-family: 'Warsaw Gothic';
-padding: .5rem 2rem;
-font-size: 2rem;
-text-transform: uppercase;
+    color: white;
+    font-family: 'Warsaw Gothic';
+    padding: .5rem 2rem;
+    font-size: 2rem;
+    text-transform: uppercase;
     position: absolute;
     top: 50%;
     left: 50%;

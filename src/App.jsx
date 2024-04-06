@@ -101,7 +101,7 @@ function App() {
       ><img src={overview ? icon3D : icon2D} /></button>
       <Progress
         scrollPercent={scrollPercent}
-        setScrollPercent={setScrollPercent}
+        // setScrollPercent={setScrollPercent}
         setCarouselPage={setCarouselPage}
       ></Progress>
       <a href="#nav"><div className={`continue ${!scrolledPage && loopedScene ? 'shake' : ''}`}><img src={downArrow} />Continue Below<img src={downArrow} /></div></a>
