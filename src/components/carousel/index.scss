@@ -12,27 +12,19 @@
     touch-action: none;
     position: absolute;
     inset: 0;
-    // overflow: hidden;
-    // over;
+
     overflow-x: hidden;
     overflow-y: scroll;
-
-    &-page {
-      // pointer-events: none;
-      display: flex;
-      justify-content: flex-start;
-
-      &-title {
-        width: auto;
-        height: 100%;
-      }
-    }
   }
 
 
   .scroll-hint, .continue-hint {
-  // &-start, &-hint, &-restart {
-    // background: $purple;
+    background: $purple;
+color: white;
+font-family: 'Warsaw Gothic';
+padding: .5rem 2rem;
+font-size: 2rem;
+text-transform: uppercase;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -45,32 +37,5 @@
     button {
       pointer-events: auto;
     }
-
-    &.hidden {
-      transition: opacity .5s, visibility .5s;
-      transition-delay: 0s;
-    }
   }
-
-  &-hint {
-    color: white;
-    // border: 1.5px solid white;
-    // border-radius: 1rem;
-    padding: .5rem 2rem .4rem;
-    font-size: 2rem;
-    font-family: 'Warsaw Gothic';
-    text-transform: uppercase;
-    background: rgba(255, 255, 255, .2);
-    backdrop-filter: blur(.5rem);
-  }
-
-    &-restart {
-      display: flex;
-      flex-direction: column;
-
-      button {
-        margin: 1rem;
-      }
-    }
-
 }

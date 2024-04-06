@@ -10,16 +10,12 @@ import { TourCamera, OverviewCamera } from '../scene/cameras';
 import Model from '../scene/model'
 import './index.scss';
 
-function Loader({ setLoaded, setAmountLoaded }) {
-  const { progress } = useProgress();
-  setAmountLoaded(progress);
-  if (progress === 100) setLoaded(true);
-  return (<></>
-    // <Html className="preloader">
-    //   <h1>{`Loading... ${Math.round(progress)}%`}</h1>
-    // </Html>
-  );
-}
+// function Loader({ setLoaded, setAmountLoaded }) {
+//   const { progress } = useProgress();
+//   setAmountLoaded(progress);
+//   if (progress === 100) setLoaded(true);
+//   return (<></>);
+// }
 
 function Scene({ jump, returnToLounge, setReturnToLounge, overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback, setAmountLoaded }) {
   const props = {
@@ -54,9 +50,13 @@ function Scene({ jump, returnToLounge, setReturnToLounge, overview, scrollPercen
   }
   const [dpr, setDpr] = useState(1.0)
 
+  const { progress } = useProgress();
+  setAmountLoaded(progress);
+  if (progress === 100) setLoaded(true);
+
   return (
     <Suspense
-      fallback={<Loader setLoaded={setLoaded} setAmountLoaded={setAmountLoaded} />}
+    // fallback={<Loader setLoaded={setLoaded} setAmountLoaded={setAmountLoaded} />}
     >
       <Canvas
         className='scene'
@@ -82,7 +82,7 @@ function Scene({ jump, returnToLounge, setReturnToLounge, overview, scrollPercen
         <OverviewCamera makeDefault={overview} />
         <Environment files={envFile} background={false} intensity={1} />
         <Model triggerPlayback={triggerPlayback} />
-        {dpr >= 1 && (<EffectComposer disableNormalPass>
+        <EffectComposer disableNormalPass>
           <SSR {...props} />
           <Bloom
             mipmapBlur={true}
@@ -105,7 +105,7 @@ function Scene({ jump, returnToLounge, setReturnToLounge, overview, scrollPercen
           bias={0.83} // occlusion bias
         /> */}
           <Vignette />
-        </EffectComposer>)}
+        </EffectComposer>
       </Canvas>
     </Suspense>
   )

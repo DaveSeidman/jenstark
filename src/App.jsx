@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import './index.scss';
 import { pages } from '../config.json';
 import Scene from './components/scene';
@@ -29,8 +29,11 @@ function App() {
   const [scrollHint, setScrollHint] = useState(false);
   const [amountLoaded, setAmountLoaded] = useState(0)
   const [returnToLounge, setReturnToLounge] = useState(false);
-  const [jump, setJump] = useState(false);
+  const [scrolledPage, setScrolledPage] = useState(false);
   const lookAhead = 0.001;
+  const appRef = useRef();
+  const fontSize = 14;
+  const continueHeight = fontSize * 5;
 
   const clicked = () => {
     setTriggerPlayback(true);
@@ -39,8 +42,25 @@ function App() {
     })
   }
 
+  const scroll = () => {
+    if (scrolledPage) return;
+    const scrollposition = -appRef.current.getBoundingClientRect().top;
+    const navInViewPosition = (innerHeight - continueHeight) / 2;
+    const navInView = scrollposition > navInViewPosition;
+    if (navInView) setScrolledPage(true);
+  }
+
+  useEffect(() => {
+    addEventListener('scroll', scroll);
+
+    return () => {
+      removeEventListener('scroll', scroll);
+    }
+  })
+
   return (
     <div
+      ref={appRef}
       className={`app ${passcode ? '' : 'locked'}`}
       onClick={clicked}
     >
@@ -53,11 +73,8 @@ function App() {
         setAmountLoaded={setAmountLoaded}
         returnToLounge={returnToLounge}
         setReturnToLounge={setReturnToLounge}
-        jump={jump}
       ></Scene>
       <Carousel
-        jump={jump}
-        setJump={setJump}
         lookAhead={lookAhead}
         scrollPercent={scrollPercent}
         setScrollPercent={setScrollPercent}
@@ -65,7 +82,7 @@ function App() {
         setCarouselPage={setCarouselPage}
         scrollHint={scrollHint}
         setScrollHint={setScrollHint}
-        setReturnToLounge={setReturnToLounge}
+        scrolledPage={setScrolledPage}
         pages={pages}
       />
       <button
@@ -78,7 +95,7 @@ function App() {
         setScrollPercent={setScrollPercent}
         setCarouselPage={setCarouselPage}
       ></Progress>
-      <a className="scrollHint" href="#nav"><img src={downArrow} />More Below<img src={downArrow} /></a>
+      <a href="#nav"><div className="continue"><img src={downArrow} />Continue Below<img src={downArrow} /></div></a>
       <Nav />
       <Experience />
       <Artist />

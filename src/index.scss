@@ -52,27 +52,14 @@ html, body, #root, .app {
   scroll-behavior: smooth;
 
   .app {
-    
     &.locked {
       position: fixed;
       overflow: hidden !important;
     }
   }
-  // #root, .app {
-  //   width: 100%;
-  //   overflow-x: hidden;
-
-  // }
   
   h1, h2, h3 {
     font-family: 'Warsaw Gothic';
-    // transform: scaleX(.9);
-    // transform-origin: 0 0;
-    // font-stretch: extra-condensed;
-  }
-
-  h1 {
-    // font-size: 3rem;
   }
 
   h2 {
@@ -119,8 +106,8 @@ html, body, #root, .app {
     opacity: .5;
   }
 
-  .scrollHint {
-    display: block;
+  .continue {
+    // display: block;
     width: 100%;
     padding: 0.25rem 0;
     border: 0;
@@ -137,16 +124,6 @@ html, body, #root, .app {
       height: 3rem;
       margin: 0 1rem;
     }
-  }
-
-  .debug {
-    position: absolute;
-    top: 0;
-    left: 0;    
-    display: none;
-    height: 1rem;
-    padding: 1rem;
-    color: white;
   }
 
   .version {
@@ -186,13 +163,3 @@ html, body, #root, .app {
     color: white;
   }
 }
-// ::-webkit-scrollbar {
-//   -webkit-appearance: none;
-//   width: 7px;
-// }
-
-// ::-webkit-scrollbar-thumb {
-//   border-radius: 4px;
-//   background-color: rgba(0, 0, 0, .5);
-//   box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-// }

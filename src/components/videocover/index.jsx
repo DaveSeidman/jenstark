@@ -8,9 +8,6 @@ function VideoCover({ loaded, setScrollHint }) {
       onClick={() => {
         setShow(false)
         setScrollHint(true);
-        // setTimeout(() => {
-        //   setScrollHint(false)
-        // }, 3500)
       }}
     >
       <video
