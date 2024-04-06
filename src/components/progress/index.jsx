@@ -8,7 +8,7 @@ function Progress({ scrollPercent, setScrollPercent, setCarouselPage }) {
   let closestAmount = Number.POSITIVE_INFINITY;
   pages.forEach((page, index) => {
     if (page.visible) {
-      const disatnceToPercent = Math.abs(scrollPercent - page.percentAlongTour)
+      const disatnceToPercent = Math.abs((scrollPercent % 1) - (1 - page.percentAlongTour))
       if (disatnceToPercent < closestAmount) {
         closestAmount = disatnceToPercent
         activeIndex = index

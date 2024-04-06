@@ -10,18 +10,14 @@ import { TourCamera, OverviewCamera } from '../scene/cameras';
 import Model from '../scene/model'
 import './index.scss';
 
-function Loader({ setLoaded, setAmountLoaded }) {
-  const { progress } = useProgress();
-  setAmountLoaded(progress);
-  if (progress === 100) setLoaded(true);
-  return (<></>
-    // <Html className="preloader">
-    //   <h1>{`Loading... ${Math.round(progress)}%`}</h1>
-    // </Html>
-  );
-}
+// function Loader({ setLoaded, setAmountLoaded }) {
+//   const { progress } = useProgress();
+//   setAmountLoaded(progress);
+//   if (progress === 100) setLoaded(true);
+//   return (<></>);
+// }
 
-function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback, setAmountLoaded }) {
+function Scene({ camRotation, returnToLounge, setReturnToLounge, overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback, setAmountLoaded }) {
   const props = {
     temporalResolve: true,
     STRETCH_MISSED_RAYS: true,
@@ -54,9 +50,13 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
   }
   const [dpr, setDpr] = useState(1.0)
 
+  const { progress } = useProgress();
+  setAmountLoaded(progress);
+  if (progress === 100) setLoaded(true);
+
   return (
     <Suspense
-      fallback={<Loader setLoaded={setLoaded} setAmountLoaded={setAmountLoaded} />}
+    // fallback={<Loader setLoaded={setLoaded} setAmountLoaded={setAmountLoaded} />}
     >
       <Canvas
         className='scene'
@@ -77,8 +77,7 @@ function Scene({ overview, scrollPercent, scrollOffset, lookAhead, setLoaded, tr
 
         {/* <fog attach="fog" args={['black', 20, 100]} /> */}
         <ambientLight intensity={0.5} />
-        {/* <PerformanceMonitorApi onIncline={() => setDpr(2)} onDecline={() => setDpr(1)} ></PerformanceMonitorApi> */}
-        <TourCamera makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} />
+        <TourCamera camRotation={camRotation} makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} returnToLounge={returnToLounge} setReturnToLounge={setReturnToLounge} />
         <OverviewCamera makeDefault={overview} />
         <Environment files={envFile} background={false} intensity={1} />
         <Model triggerPlayback={triggerPlayback} />

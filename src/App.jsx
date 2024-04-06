@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import './index.scss';
 import { pages } from '../config.json';
 import Scene from './components/scene';
@@ -22,13 +22,19 @@ import { version } from '../package.json';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [overview, setOverview] = useState(false);
-  const [scrollPercent, setScrollPercent] = useState(0);
+  const [scrollPercent, setScrollPercent] = useState(100.15);
+  const [camRotation, setCamRotation] = useState(0);
   const [carouselPage, setCarouselPage] = useState(0);
   const [passcode, setPasscode] = useState(null);
   const [triggerPlayback, setTriggerPlayback] = useState(false);
   const [scrollHint, setScrollHint] = useState(false);
   const [amountLoaded, setAmountLoaded] = useState(0)
-  const lookAhead = 0.005;
+  const [returnToLounge, setReturnToLounge] = useState(false);
+  const [scrolledPage, setScrolledPage] = useState(false);
+  const lookAhead = 0.001;
+  const appRef = useRef();
+  const fontSize = 14;
+  const continueHeight = fontSize * 5;
 
   const clicked = () => {
     setTriggerPlayback(true);
@@ -37,8 +43,25 @@ function App() {
     })
   }
 
+  const scroll = () => {
+    if (scrolledPage) return;
+    const scrollposition = -appRef.current.getBoundingClientRect().top;
+    const navInViewPosition = (innerHeight - continueHeight) / 2;
+    const navInView = scrollposition > navInViewPosition;
+    if (navInView) setScrolledPage(true);
+  }
+
+  useEffect(() => {
+    addEventListener('scroll', scroll);
+
+    return () => {
+      removeEventListener('scroll', scroll);
+    }
+  })
+
   return (
     <div
+      ref={appRef}
       className={`app ${passcode ? '' : 'locked'}`}
       onClick={clicked}
     >
@@ -49,6 +72,9 @@ function App() {
         setLoaded={setLoaded}
         triggerPlayback={triggerPlayback}
         setAmountLoaded={setAmountLoaded}
+        returnToLounge={returnToLounge}
+        setReturnToLounge={setReturnToLounge}
+        camRotation={camRotation}
       ></Scene>
       <Carousel
         lookAhead={lookAhead}
@@ -58,6 +84,8 @@ function App() {
         setCarouselPage={setCarouselPage}
         scrollHint={scrollHint}
         setScrollHint={setScrollHint}
+        scrolledPage={setScrolledPage}
+        setCamRotation={setCamRotation}
         pages={pages}
       />
       <button
@@ -70,7 +98,7 @@ function App() {
         setScrollPercent={setScrollPercent}
         setCarouselPage={setCarouselPage}
       ></Progress>
-      <a className="scrollHint" href="#nav"><img src={downArrow} />More Below<img src={downArrow} /></a>
+      <a href="#nav"><div className="continue"><img src={downArrow} />Continue Below<img src={downArrow} /></div></a>
       <Nav />
       <Experience />
       <Artist />

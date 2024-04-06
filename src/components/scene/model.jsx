@@ -9,25 +9,18 @@ function Model({ triggerPlayback }) {
   const gltf = useGLTF(sceneFile);
   const alloySign = gltf.scene.getObjectByName('alloy')
   const videoTextures = useRef({})
-  // const videosStarted = useRef(false);
   const mixers = useRef([]);
 
 
   const startVideos = () => {
-    // console.log("here", videoTextures.current[Object.keys(videoTextures.current)[0]].source.data.paused)
-    // if (videosStarted.current) return
     Object.keys(videoTextures.current).forEach((name) => {
       if (!videoTextures.current[name].source.data) {
         console.log('vid not found?', name);
       } else {
-
         videoTextures.current[name].source.data.play();
         videoTextures.current[name].needsUpdate = true
       }
-      // videoTextures.current[name].needsUpdate = true;
-      // videoTextures.current[name].needsPMREMUpdate = true
     })
-    // videosStarted.current = true;
   }
   useEffect(() => {
 
@@ -61,22 +54,6 @@ function Model({ triggerPlayback }) {
         action.play();
         animCount += 1;
       }
-
-      if (obj.name === 'floor' || obj.name === 'sidewalk') {
-        obj.receiveShadow = true;
-        // obj.castShadow = true;
-        // obj.smoothness = 5
-        obj.material = new MeshStandardMaterial({
-          color: obj.material.color,
-          // color: 0x222222,
-          // envMapIntensity: 0,
-          roughness: 0,
-          // metalness: 0,
-          map: obj.material.map,
-          normalMap: obj.material.normalMap
-        })
-      }
-
 
       if (obj.material?.name.includes('mp4') && !videoTextures.current[obj.material.name]) {
         const video = document.createElement('video');

@@ -1,42 +1,76 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
 
-function Carousel({ pages, scrollPercent, scrollHint, setScrollHint, setScrollPercent, carouselPage, setCarouselPage }) {
+function Carousel({ setCamRotation, pages, scrollHint, setScrollHint, scrollPercent, setScrollPercent, carouselPage, setCarouselPage }) {
   const pagesRef = useRef();
+  const prevCarouselPage = useRef();
+  const [continueHint, setContinueHint] = useState(false);
+  const pointer = useRef({ down: false })
 
-  // const [scrollHint, setScrollHint] = useState(false);
-
-  const scroll = ({ target }) => {
-    setScrollHint(false);
-    const { scrollTop, scrollHeight } = target;
-    const { height } = target.getBoundingClientRect();
-    const nextScrollPercent = (scrollTop / (scrollHeight - height));
-    setScrollPercent(nextScrollPercent);
-  };
-
-  const scrollToTop = () => {
-    pagesRef.current.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }
-
-  const scrollToFirstPage = () => {
-    setCarouselPage(1);
-    setTimeout(() => {
-      setCarouselPage(0);
+  const scroll = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setScrollPercent((prevScrollPercent) => {
+      let nextScrollPercent = prevScrollPercent + (e.deltaY / -20000);
+      // TODO: this should be the correct method but causes a bounce in the TourCamera
+      // so instead we're setting the initial scroll percent high
+      // if (nextScrollPercent <= 0) nextScrollPercent += 1;
+      return nextScrollPercent;
     })
+    setScrollHint(false);
   }
 
+  // TODO: fix this
   useEffect(() => {
-    pagesRef.current.children[carouselPage].scrollIntoView({
-      behavior: 'smooth',
-      block: 'end',
-    });
+    setScrollPercent((prevScrollPercent) => prevScrollPercent + (pages[carouselPage].percent / 10))
+    prevCarouselPage.current = carouselPage;
   }, [carouselPage])
 
+
+  const pointerdown = (e) => {
+    pointer.current.down = true;
+    pointer.current.x = e.clientX;
+    pointer.current.y = e.clientY;
+  }
+
+  const pointerup = () => {
+    pointer.current.down = false;
+  }
+
+  const pointermove = (e) => {
+    if (pointer.current.down) {
+      if (pointer.current.x) {
+        const offset = {
+          x: e.clientX - pointer.current.x,
+          y: e.clientY - pointer.current.y
+        }
+
+        setCamRotation((prevCamRotation) => prevCamRotation + (offset.x / 400));
+
+        setScrollPercent((prevScrollPercent) => {
+          let nextScrollPercent = prevScrollPercent + (offset.y / 4000);
+          return nextScrollPercent;
+        })
+      }
+      pointer.current.x = e.clientX;
+      pointer.current.y = e.clientY;
+      setScrollHint(false);
+    }
+  }
+
   useEffect(() => {
-    scrollToTop();
+    pagesRef.current.addEventListener('mousewheel', scroll);
+    addEventListener('pointerdown', pointerdown);
+    addEventListener('pointermove', pointermove);
+    addEventListener('pointerup', pointerup);
+
+
+    return (() => {
+      pagesRef.current.removeEventListener('mousewheel', scroll);
+      removeEventListener('pointerdown', pointerdown);
+      removeEventListener('pointermove', pointermove);
+      removeEventListener('pointerup', pointerup);
+    })
   }, [])
 
   return (
@@ -46,30 +80,12 @@ function Carousel({ pages, scrollPercent, scrollHint, setScrollHint, setScrollPe
         className="carousel-pages"
         onScroll={scroll}
       >
-        {
-          pages.map((page) => {
-            return (
-              <div
-                key={page.slug}
-                className="carousel-pages-page"
-                style={{
-                  // height: `${page.pathLength * 100}vh`
-                  height: '300vh'
-                }}
-              >
-              </div>
-            );
-          })
-        }
       </div>
-      {/* <div className={`carousel-start ${scrollPercent < .01 ? '' : 'hidden'}`}>
-        <button onClick={scrollToFirstPage}>Click to Enter</button>
-      </div> */}
-      <div className={`carousel-hint ${scrollHint ? '' : 'hidden'}`}>
+      <div className={`scroll-hint ${scrollHint ? '' : 'hidden'}`}>
         Scroll To Continue
       </div>
-      <div className={`carousel-restart ${scrollPercent > .99 ? '' : 'hidden'}`}>
-        <button onClick={scrollToTop}>Return to Lounge</button>
+      <div className={`continue-hint ${continueHint ? '' : 'hidden'}`}>
+        Continue Below
       </div>
     </div>
   );

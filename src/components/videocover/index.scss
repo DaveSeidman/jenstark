@@ -2,35 +2,44 @@
   position: absolute;
   top: 0;
   width: 100%;
-  height: calc(100vh - 9rem);
+  height: calc(100vh - 5rem);
   cursor: pointer;
   transition: opacity 1s, visibility 1s;
   overflow-x: hidden;
+  &.hidden {
+    display: none;
+  }
 
-  video {
+  video, &-title {
+    position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-  h1, p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    font-size: 7rem;
-    text-shadow: 0 .25rem .25rem rgba(0, 0, 0, .5);
-    transform: translate(-50%, -100%);
-    text-align: center;
-    word-spacing: .75rem;
-  }
+  &-title {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1, p {
+      color: rgb(255, 255, 255);
+      cursor: pointer;
+      margin: 1rem;
+      font-size: 6rem;
+      text-shadow: 0 .25rem .25rem rgba(0, 0, 0, .5);
+      text-align: center;
+    }
 
-  p {
-    margin-top: 8rem;
-    font-family: 'Warsaw Gothic';
-    font-size: 3rem;
-    text-transform: uppercase;
+    h1 {
+      word-spacing: .75rem;
+    }
+
+    p {
+      margin: .25rem;
+      font-family: 'Warsaw Gothic';
+      font-size: 3rem;
+      text-transform: uppercase;
+    }
   }
-  
 }
