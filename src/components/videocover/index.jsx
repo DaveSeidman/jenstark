@@ -1,13 +1,18 @@
 import React, { useState } from "react"
 import './index.scss';
 
-function VideoCover({ loaded, setScrollHint }) {
+function VideoCover({ loaded, setScrollHint, setTriggerPlayback }) {
   const [show, setShow] = useState(true);
   return (
     <div className={`videocover ${show ? '' : 'hidden'}`}
       onClick={() => {
+        console.log('clicked video cover')
         setShow(false)
         setScrollHint(true);
+        setTriggerPlayback(true);
+        setTimeout(() => {
+          setTriggerPlayback(false);
+        })
       }}
     >
       <video

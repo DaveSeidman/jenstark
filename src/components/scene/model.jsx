@@ -3,16 +3,29 @@ import { useFrame } from '@react-three/fiber'
 import { AnimationMixer, VideoTexture, RepeatWrapping, MeshStandardMaterial } from 'three'
 import { useGLTF } from '@react-three/drei';
 import sceneFile from '../../assets/models/scene.glb';
+import { pages } from '../../../config.json'
 
-function Model({ triggerPlayback }) {
+function Model({ triggerPlayback, scrollPercent }) {
   // Ask GPT if we should move the gltf loading outside of here
   const gltf = useGLTF(sceneFile);
   const alloySign = gltf.scene.getObjectByName('alloy')
   const videoTextures = useRef({})
   const mixers = useRef([]);
 
+  const totalPercent = (scrollPercent % 1) * 100;
+  let activeIndex = -1;
+  for (let i = 0; i < pages.length; i += 1) {
+    if (pages[i].percent > totalPercent) {
+      activeIndex = i - 1;
+      break;
+    }
+  }
+  // TODO: if we want to be clever, we can add which videos should be playing
+  // in each page object from pages and then trigger them to start or stop
+  // based on where we are in the experience.
 
   const startVideos = () => {
+    console.log('start all videos')
     Object.keys(videoTextures.current).forEach((name) => {
       if (!videoTextures.current[name].source.data) {
         console.log('vid not found?', name);
@@ -22,8 +35,8 @@ function Model({ triggerPlayback }) {
       }
     })
   }
-  useEffect(() => {
 
+  useEffect(() => {
     let animCount = 0;
     gltf.scene.traverse((obj) => {
 
@@ -50,6 +63,7 @@ function Model({ triggerPlayback }) {
         obj.frustumCulled = false;
         const mixer = new AnimationMixer(obj)
         mixers.current.push(mixer);
+        // TODO: we'll need to store the animation name, maybe as something we can parse from the obj name
         const action = mixer.clipAction(gltf.animations[animCount]);
         action.play();
         animCount += 1;
@@ -71,17 +85,17 @@ function Model({ triggerPlayback }) {
       }
     });
 
-    addEventListener('click', startVideos);
+    // addEventListener('click', startVideos);
 
-    return () => {
-      removeEventListener('click', startVideos)
-    }
+    // return () => {
+    //   removeEventListener('click', startVideos)
+    // }
   }, [])
 
   useEffect(() => {
     if (triggerPlayback) {
-      // console.log('play videos here');
-      // startVideos();
+      console.log('triggerPlayback is true');
+      startVideos();
     }
   }, [triggerPlayback])
 

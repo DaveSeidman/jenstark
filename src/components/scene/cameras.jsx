@@ -121,7 +121,7 @@ export function OverviewCamera({ makeDefault }) {
       makeDefault={makeDefault}
       position={[0, 100, 0]}
       rotation={[-90 * (Math.PI / 180), 0, 0]}
-      zoom={5}
+      zoom={3}
     />
   );
 }

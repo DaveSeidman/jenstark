@@ -38,13 +38,6 @@ function App() {
   const fontSize = 14;
   const continueHeight = fontSize * 5;
 
-  const clicked = () => {
-    setTriggerPlayback(true);
-    setTimeout(() => {
-      setTriggerPlayback(false);
-    })
-  }
-
   const scroll = () => {
     if (scrolledPage) return;
     const scrollposition = -appRef.current.getBoundingClientRect().top;
@@ -65,7 +58,6 @@ function App() {
     <div
       ref={appRef}
       className={`app ${passcode ? '' : 'locked'}`}
-      onClick={clicked}
     >
       <Scene
         startPercent={startPercent}
@@ -112,7 +104,11 @@ function App() {
       <Alloy />
       <Venue />
       <Opportunities />
-      <VideoCover loaded={loaded} setScrollHint={setScrollHint} />
+      <VideoCover
+        loaded={loaded}
+        setScrollHint={setScrollHint}
+        setTriggerPlayback={setTriggerPlayback}
+      />
       {amountLoaded < 100 && (<div className="preload">
         <h1>{`Loading... ${Math.round(amountLoaded)}%`}</h1>
       </div>)}

@@ -56,6 +56,7 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
         return nextScrollPercent
       });
       setCamRotation(0);
+      setScrollHint(false);
     }
   }
 

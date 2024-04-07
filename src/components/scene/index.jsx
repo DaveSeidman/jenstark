@@ -70,7 +70,7 @@ function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, o
       <OverviewCamera makeDefault={overview} />
       <Environment files={envFile} background={false} intensity={1} />
       <Suspense>
-        <Model triggerPlayback={triggerPlayback} />
+        <Model triggerPlayback={triggerPlayback} scrollPercent={scrollPercent} />
       </Suspense>
 
       <EffectComposer disableNormalPass>
