@@ -31,7 +31,7 @@ export function TourCamera({ startPercent, camRotation, makeDefault, scrollPerce
     progress.current += (scrollPercent - progress.current) / 20;
     // console.log(Math.abs(scrollPercent - progress.current), framesWithMotion.current);
     curve.getPoint(progress.current % 1, positionTarget);
-    curve.getPoint((progress.current + lookAhead) % 1, lookAtTarget);
+    curve.getPoint((progress.current - lookAhead) % 1, lookAtTarget);
     containerRef.current.position.copy(positionTarget)
     containerRef.current.lookAt(lookAtTarget);
 
@@ -92,7 +92,8 @@ export function TourCamera({ startPercent, camRotation, makeDefault, scrollPerce
   }, [scrollPercent])
 
   return (
-    <group ref={containerRef}
+    <group
+      ref={containerRef}
       position={containerPosition}
     >
       <PerspectiveCamera

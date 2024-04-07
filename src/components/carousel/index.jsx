@@ -15,7 +15,7 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
     e.preventDefault();
     e.stopPropagation();
     setScrollPercent((prevScrollPercent) => {
-      let nextScrollPercent = prevScrollPercent + (-e.deltaY / 20000);
+      let nextScrollPercent = prevScrollPercent + (e.deltaY / 20000);
       // TODO: this should be the correct method but causes a bounce in the TourCamera
       // so instead we're setting the initial scroll percent high
       // if (nextScrollPercent <= 0) nextScrollPercent += 1;
@@ -85,7 +85,7 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
         );
 
         setScrollPercent((prevScrollPercent) => {
-          let nextScrollPercent = prevScrollPercent + (offset.y / 4000);
+          let nextScrollPercent = prevScrollPercent + (-offset.y / 4000);
           if (!loopedScene) {
             if (Math.abs(nextScrollPercent - startPercent) > 1) {
               setLoopedScene(true);

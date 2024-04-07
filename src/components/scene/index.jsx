@@ -1,21 +1,13 @@
 import React, { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ShaderMaterial, Vector2, NoToneMapping, LinearToneMapping, ReinhardToneMapping, CineonToneMapping, ACESFilmicToneMapping, CustomToneMapping } from 'three';
-import { Bloom, SSAO, DepthOfField, ChromaticAberration, EffectComposer, Noise, Vignette, SSR } from '@react-three/postprocessing'
-import { Environment, Html, PerspectiveCamera, Plane, Sphere, Box, RoundedBox, useProgress, PerformanceMonitor } from '@react-three/drei';
+import { LinearToneMapping } from 'three';
+import { Bloom, EffectComposer, Vignette, SSR } from '@react-three/postprocessing'
+import { Environment, useProgress, PerformanceMonitor } from '@react-three/drei';
 import envFile from '../../assets/images/metro_noord_4k.hdr';
 import { TourCamera, OverviewCamera } from '../scene/cameras';
-// import { BlendFunction } from 'postprocessing'
 
 import Model from '../scene/model'
 import './index.scss';
-
-// function Loader({ setLoaded, setAmountLoaded }) {
-//   const { progress } = useProgress();
-//   setAmountLoaded(progress);
-//   if (progress === 100) setLoaded(true);
-//   return (<></>);
-// }
 
 function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback, setAmountLoaded }) {
   const props = {
@@ -55,42 +47,42 @@ function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, o
   if (progress === 100) setLoaded(true);
 
   return (
-    <Suspense
-    // fallback={<Loader setLoaded={setLoaded} setAmountLoaded={setAmountLoaded} />}
+    <Canvas
+      className='scene'
+      performance={{ min: 0.5 }} // TODO: test this on mobile
+      dpr={dpr}
+      // shadows
+      // shadowMap
+      gl={{
+        logarithmicDepthBuffer: true,
+        // antialias: false,
+        // stencil: false,
+        // depth: false,
+        toneMapping: LinearToneMapping,
+        toneMappingExposure: .5
+      }}
     >
-      <Canvas
-        className='scene'
-        performance={{ min: 0.5 }} // TODO: test this on mobile
-        dpr={dpr}
-        // shadows
-        // shadowMap
-        gl={{
-          logarithmicDepthBuffer: true,
-          // antialias: false,
-          // stencil: false,
-          // depth: false,
-          toneMapping: LinearToneMapping,
-          toneMappingExposure: .5
-        }}
-      >
-        <PerformanceMonitor onIncline={() => setDpr(1)} onDecline={() => setDpr(0.5)} />
+      <PerformanceMonitor onIncline={() => setDpr(1)} onDecline={() => setDpr(0.75)} />
 
-        {/* <fog attach="fog" args={['black', 20, 100]} /> */}
-        <ambientLight intensity={0.5} />
-        <TourCamera startPercent={startPercent} camRotation={camRotation} makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} returnToLounge={returnToLounge} setReturnToLounge={setReturnToLounge} />
-        <OverviewCamera makeDefault={overview} />
-        <Environment files={envFile} background={false} intensity={1} />
+      {/* <fog attach="fog" args={['black', 20, 100]} /> */}
+      <ambientLight intensity={0.5} />
+      <TourCamera startPercent={startPercent} camRotation={camRotation} makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} returnToLounge={returnToLounge} setReturnToLounge={setReturnToLounge} />
+      <OverviewCamera makeDefault={overview} />
+      <Environment files={envFile} background={false} intensity={1} />
+      <Suspense>
         <Model triggerPlayback={triggerPlayback} />
-        <EffectComposer disableNormalPass>
-          <SSR {...props} />
-          <Bloom
-            mipmapBlur={true}
-            intensity={1.5}
-            kernalSize={2}
-            luminanceSmoothing={1.25}
-            luminanceThreshold={.95}
-          />
-          {/* <SSAO
+      </Suspense>
+
+      <EffectComposer disableNormalPass>
+        <SSR {...props} />
+        <Bloom
+          mipmapBlur={true}
+          intensity={1.5}
+          kernalSize={2}
+          luminanceSmoothing={1.25}
+          luminanceThreshold={.95}
+        />
+        {/* <SSAO
           blendFunction={4} // blend mode
           samples={32} // amount of samples per pixel (shouldn't be a multiple of the ring count)
           rings={2} // amount of rings in the occlusion sampling pattern
@@ -103,10 +95,9 @@ function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, o
           scale={2} // scale of the ambient occlusion
           bias={0.83} // occlusion bias
         /> */}
-          <Vignette />
-        </EffectComposer>
-      </Canvas>
-    </Suspense>
+        <Vignette />
+      </EffectComposer>
+    </Canvas>
   )
 }
 
