@@ -2,6 +2,14 @@
   position: relative;
   width: 100%;
   height: 1rem;
+
+  .debug {
+    position: absolute;
+    color: white;
+    margin-top: -8rem;
+    margin-left: 2rem;
+    font-size: 4rem;
+  }
   
   &-bar {
     position: absolute;
@@ -36,7 +44,13 @@
 
         opacity: 1;
       }
+      &:first-child,
+       &:last-child {
+        display: none;
+      }
     }
+   
+
   }
 
   p {

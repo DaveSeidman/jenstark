@@ -5,7 +5,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
 
-function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHint, setScrollPercent, carouselPage, loopedScene, setLoopedScene, setCarouselPage }) {
+function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHint, setScrollPercent, carouselPage, loopedScene, setLoopedScene }) {
   const pagesRef = useRef();
   const prevCarouselPage = useRef();
   const pointer = useRef({ x: 0, y: 0, down: false })
@@ -31,18 +31,6 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
     setScrollHint(false);
   }
 
-  // TODO: fix this
-  useEffect(() => {
-    setScrollPercent((prevScrollPercent) => {
-      // console.log(prevScrollPercent % 1, pages[carouselPage].percent)
-      const dist = pages[carouselPage].percent - (prevScrollPercent % 1)
-      let nextScrollPercent = prevScrollPercent - dist;
-      return nextScrollPercent
-    })
-    // setScrollPercent((prevScrollPercent) => prevScrollPercent + (pages[carouselPage].percent / 10))
-    // prevCarouselPage.current = carouselPage;
-  }, [carouselPage])
-
   const pointerdown = (e) => {
     pointer.current.down = true;
     pointer.current.x = e.clientX;
@@ -53,13 +41,12 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
 
   const pointerup = () => {
     pointer.current.down = false;
-    // console.log(pointer.current, prevPointer.current)
     if (
       (Math.abs(pointer.current.x - prevPointer.current.x) < .1) &&
       (Math.abs(pointer.current.y - prevPointer.current.y) < .1)
     ) {
       setScrollPercent((prevScrollPercent) => {
-        const nextScrollPercent = prevScrollPercent - .05
+        const nextScrollPercent = prevScrollPercent + .05
         // TODO: DRY:
         if (!loopedScene) {
           if (Math.abs(nextScrollPercent - startPercent) > 1) {
@@ -67,7 +54,6 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
           }
         }
         return nextScrollPercent
-
       });
       setCamRotation(0);
     }
@@ -114,6 +100,12 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
       pagesRef.current.removeEventListener('pointerup', pointerup);
     })
   }, [])
+
+  // TODO: fix this
+  useEffect(() => {
+    setScrollPercent((prevScrollPercent) => (Math.floor(prevScrollPercent) + (pages[carouselPage].percent + 1) / 100))
+  }, [carouselPage])
+
 
   return (
     <div className="carousel">

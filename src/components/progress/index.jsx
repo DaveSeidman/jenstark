@@ -1,31 +1,45 @@
-import React from "react";
+import React, { useRef } from "react";
 import './index.scss';
 import { pages } from '../../../config.json'
-console.log(pages)
+
+
 function Progress({ scrollPercent, setCarouselPage }) {
+  const labelsRef = useRef();
 
   let activeIndex = 0;
-  let closestAmount = Number.POSITIVE_INFINITY;
-  pages.forEach((page, index) => {
-    const dist = Math.abs((scrollPercent % 1) - (page.percent))
-    if (dist < closestAmount) {
-      closestAmount = dist
-      activeIndex = index
+  const totalPercent = (scrollPercent % 1) * 100;
+  let betweenPercent = 0;
+  let progressBarWidth = 0;
+  for (let i = 0; i < pages.length; i += 1) {
+    if (pages[i].percent > totalPercent) {
+      activeIndex = i - 1;
+      const range = pages[i].percent - pages[i - 1].percent;
+      const offset = totalPercent - pages[i - 1].percent;
+      betweenPercent = offset / range;
+      // console.log(`active index is ${i}, totalPercent: ${totalPercent}`, pages[i - 1].percent, pages[i].percent, betweenPercent);
+      break;
     }
-  })
+  }
+
+  if (labelsRef.current) {
+    const left1 = (activeIndex / pages.length) * innerWidth;
+    const left2 = ((activeIndex + 1) / pages.length) * innerWidth;
+    progressBarWidth = left1 + ((left2 - left1) * betweenPercent);
+  }
 
   return (
     <div className="progress">
+      <div className="debug">{Math.round(100 * (scrollPercent % 1))}</div>
       <div className="progress-bar"
-        style={{ width: `${(1 - (scrollPercent % 1)) * 100}%` }}
+        style={{ width: `${progressBarWidth}px` }}
       ></div>
-      <div className="progress-labels">
+      <div
+        className="progress-labels"
+        ref={labelsRef}
+      >
         {pages.map((page, index) => (<span
           key={page.slug}
-          onClick={() => {
-            // setScrollPercent(page.percent);
-            setCarouselPage(index);
-          }}
+          onClick={() => { setCarouselPage(index); }}
           className={`progress-labels-label ${activeIndex === index ? 'active' : ''}`}
         // style={{ left: `${page.percent * 100}%` }}
         >{page.title}</span>)

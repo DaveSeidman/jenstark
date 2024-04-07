@@ -2,52 +2,56 @@
   "pages": [
     {
       "title": "Entrance",
-      "slug": "exp",
-      "percent": 0.15
+      "slug": "entrance",
+      "percent": 0
     },{
-      "title": "Bar",
-      "slug": "spbar",
-      "percent": 0.1
+      "title": "Lounge",
+      "slug": "lounge",
+      "percent": 6
     },{
       "title": "Activation Area",
-      "slug": "act1",
-      "percent": 0.05
+      "slug": "activation-area",
+      "percent": 10
     },{
       "title": "Gift Shop",
-      "slug": "gift",
-      "percent": 0.0
+      "slug": "gift-shop",
+      "percent": 16
     },{
       "title": "Reception",
-      "slug": "recp",
-      "percent": 0.95
+      "slug": "reception",
+      "percent": 21
     },{
       "title": "Light Tunnel",
-      "slug": "lt",
-      "percent": 0.93
+      "slug": "light-tunnel",
+      "percent": 24
     },{
       "title": "Strobe Wall",
-      "slug": "strobe",
-      "percent": 0.86
+      "slug": "strobe-wall",
+      "percent": 30
     },{
       "title": "Drip Cascade",
-      "slug": "drip",
-      "percent": 0.82
+      "slug": "drip-cascade",
+      "percent": 34
     },{
       "title": "Rainbow Cycle",
-      "slug": "rainbow1",
-      "percent": 0.65
+      "slug": "rainbow-cycle",
+      "percent": 53
     },{
       "title": "Digital Paint",
-      "slug": "dp",
-      "percent": 0.54
+      "slug": "digitalPaint",
+      "percent": 62
     },{
       "title": "Space Junk",
-      "slug": "space",
-      "percent": 0.46
+      "slug": "space-junk",
+      "percent": 70
     },{
       "title": "Photo Booth",
-      "slug": "photo",
-      "percent": 0.26
+      "slug": "photo-booth",
+      "percent": 91
+    },{
+      "title": "Exit",
+      "slug": "exit",
+      "percent": 96
     }
   ],
   "carousels": {
