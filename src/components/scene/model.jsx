@@ -4,22 +4,16 @@ import { AnimationMixer, VideoTexture, RepeatWrapping, MeshStandardMaterial } fr
 import { useGLTF, useTexture } from '@react-three/drei';
 import sceneFile from '../../assets/models/scene.glb';
 import { pages } from '../../../config.json'
-// import InteractiveCanvas from './interactiveCanvas';
+import InteractiveTexture from './interactiveTexture';
 
-function Model({ triggerPlayback, scrollPercent }) {
-
-  const canvas = useRef(document.createElement('canvas'));
-  canvas.current.width = 512;
-  canvas.current.height = 512;
-  const context = useRef(canvas.current.getContext('2d'));
-  const textureRef = useRef();
-  // const canvasTexture = useTexture(InteractiveCanvas({ x: 1, y: 2 }));
+function Model({ triggerPlayback, scrollPercent, x, y }) {
 
   // Ask GPT if we should move the gltf loading outside of here
   const gltf = useGLTF(sceneFile);
   const alloySign = gltf.scene.getObjectByName('alloy')
   const videoTextures = useRef({})
   const mixers = useRef([]);
+  const interactiveMaterialRef = useRef();
 
   const totalPercent = (scrollPercent % 1) * 100;
   let activeIndex = -1;
@@ -50,7 +44,6 @@ function Model({ triggerPlayback, scrollPercent }) {
     gltf.scene.traverse((obj) => {
 
       if (obj.name.includes('clone') && !obj.name.includes('cloned')) {
-        // console.log(obj)
         const name = obj.name.slice(0, -9);
         const originalObject = gltf.scene.getObjectByName(name);
         if (originalObject) {
@@ -92,13 +85,13 @@ function Model({ triggerPlayback, scrollPercent }) {
         obj.material.map = videoTexture;
         obj.material.emissiveMap = videoTexture;
       }
+
+      if (obj.material?.name.toLowerCase().includes('junk')) {
+        // console.log(obj, interactiveMaterialRef)
+        obj.material = interactiveMaterialRef.current;
+      }
     });
 
-    // addEventListener('click', startVideos);
-
-    // return () => {
-    //   removeEventListener('click', startVideos)
-    // }
   }, [])
 
   useEffect(() => {
@@ -118,13 +111,6 @@ function Model({ triggerPlayback, scrollPercent }) {
     mixers.current.forEach(mixer => {
       mixer.update(delta)
     })
-
-    context.current.fillStyle = 'black';
-    context.current.fillRect(0, 0, canvas.current.width, canvas.current.height);
-    context.current.font = '40px Arial';
-    context.current.fillStyle = 'white';
-    context.current.fillText(`Hello! ${delta}`, 200, 250);
-    textureRef.current.needsUpdate = true;
   })
 
   return (
@@ -132,13 +118,11 @@ function Model({ triggerPlayback, scrollPercent }) {
       <primitive object={gltf.scene} />
       <mesh position={[-15, 3, 38]} rotation={[-Math.PI, 0, 0]}>
         <planeGeometry args={[10, 10]} />
-        <meshBasicMaterial side={2}>
-          <canvasTexture
-            flipY={false}
-            ref={textureRef}
-            attach="map"
-            image={canvas.current}
-          />
+        <meshBasicMaterial
+          ref={interactiveMaterialRef}
+          side={2}
+        >
+          <InteractiveTexture x={x} y={y}></InteractiveTexture>
         </meshBasicMaterial>
       </mesh>
     </group >
