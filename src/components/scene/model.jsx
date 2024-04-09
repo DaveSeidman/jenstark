@@ -8,6 +8,8 @@ import InteractiveTexture from './interactiveTexture';
 
 function Model({ triggerPlayback, scrollPercent, x, y }) {
 
+  const [interactiveMesh, setInteractiveMesh] = useState();
+
   // Ask GPT if we should move the gltf loading outside of here
   const gltf = useGLTF(sceneFile);
   const alloySign = gltf.scene.getObjectByName('alloy')
@@ -86,9 +88,10 @@ function Model({ triggerPlayback, scrollPercent, x, y }) {
         obj.material.emissiveMap = videoTexture;
       }
 
-      if (obj.material?.name.toLowerCase().includes('junk')) {
+      if (obj.material?.name.toLowerCase().includes('interactive')) {
         // console.log(obj, interactiveMaterialRef)
         obj.material = interactiveMaterialRef.current;
+        setInteractiveMesh(obj);
       }
     });
 
@@ -116,13 +119,14 @@ function Model({ triggerPlayback, scrollPercent, x, y }) {
   return (
     <group>
       <primitive object={gltf.scene} />
-      <mesh position={[-15, 3, 38]} rotation={[-Math.PI, 0, 0]}>
+      <mesh position={[-25, 5, 50]} rotation={[Math.PI, Math.PI / 2, Math.PI]}>
         <planeGeometry args={[10, 10]} />
-        <meshBasicMaterial
-          ref={interactiveMaterialRef}
-          side={2}
-        >
-          <InteractiveTexture x={x} y={y}></InteractiveTexture>
+        <meshBasicMaterial side={2} ref={interactiveMaterialRef}>
+          <InteractiveTexture
+            x={x} y={y}
+            scrollPercent={scrollPercent}
+            interactiveMesh={interactiveMesh}
+          ></InteractiveTexture>
         </meshBasicMaterial>
       </mesh>
     </group >
