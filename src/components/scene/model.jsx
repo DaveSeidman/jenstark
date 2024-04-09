@@ -4,7 +4,7 @@ import { AnimationMixer, VideoTexture, RepeatWrapping, MeshStandardMaterial } fr
 import { useGLTF, useTexture } from '@react-three/drei';
 import sceneFile from '../../assets/models/scene.glb';
 import { pages } from '../../../config.json'
-import InteractiveTexture from './interactiveTexture';
+// import InteractiveTexture from './interactiveTexture';
 
 function Model({ triggerPlayback, scrollPercent, x, y }) {
 
@@ -89,9 +89,8 @@ function Model({ triggerPlayback, scrollPercent, x, y }) {
       }
 
       if (obj.material?.name.toLowerCase().includes('interactive')) {
-        // console.log(obj, interactiveMaterialRef)
-        obj.material = interactiveMaterialRef.current;
-        setInteractiveMesh(obj);
+        // obj.material = interactiveMaterialRef.current;
+        // setInteractiveMesh(obj);
       }
     });
 
@@ -119,7 +118,7 @@ function Model({ triggerPlayback, scrollPercent, x, y }) {
   return (
     <group>
       <primitive object={gltf.scene} />
-      <mesh position={[-25, 5, 50]} rotation={[Math.PI, Math.PI / 2, Math.PI]}>
+      {/* <mesh position={[-25, 5, 50]} rotation={[Math.PI, Math.PI / 2, Math.PI]}>
         <planeGeometry args={[10, 10]} />
         <meshBasicMaterial side={2} ref={interactiveMaterialRef}>
           <InteractiveTexture
@@ -128,7 +127,7 @@ function Model({ triggerPlayback, scrollPercent, x, y }) {
             interactiveMesh={interactiveMesh}
           ></InteractiveTexture>
         </meshBasicMaterial>
-      </mesh>
+      </mesh> */}
     </group >
   );
 }
