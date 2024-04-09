@@ -1,16 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber'
 import { AnimationMixer, VideoTexture, RepeatWrapping, MeshStandardMaterial } from 'three'
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useTexture } from '@react-three/drei';
 import sceneFile from '../../assets/models/scene.glb';
 import { pages } from '../../../config.json'
+// import InteractiveTexture from './interactiveTexture';
 
-function Model({ triggerPlayback, scrollPercent }) {
+function Model({ triggerPlayback, scrollPercent, x, y }) {
+
+  const [interactiveMesh, setInteractiveMesh] = useState();
+
   // Ask GPT if we should move the gltf loading outside of here
   const gltf = useGLTF(sceneFile);
   const alloySign = gltf.scene.getObjectByName('alloy')
   const videoTextures = useRef({})
   const mixers = useRef([]);
+  const interactiveMaterialRef = useRef();
 
   const totalPercent = (scrollPercent % 1) * 100;
   let activeIndex = -1;
@@ -41,7 +46,6 @@ function Model({ triggerPlayback, scrollPercent }) {
     gltf.scene.traverse((obj) => {
 
       if (obj.name.includes('clone') && !obj.name.includes('cloned')) {
-        // console.log(obj)
         const name = obj.name.slice(0, -9);
         const originalObject = gltf.scene.getObjectByName(name);
         if (originalObject) {
@@ -83,13 +87,13 @@ function Model({ triggerPlayback, scrollPercent }) {
         obj.material.map = videoTexture;
         obj.material.emissiveMap = videoTexture;
       }
+
+      if (obj.material?.name.toLowerCase().includes('interactive')) {
+        // obj.material = interactiveMaterialRef.current;
+        // setInteractiveMesh(obj);
+      }
     });
 
-    // addEventListener('click', startVideos);
-
-    // return () => {
-    //   removeEventListener('click', startVideos)
-    // }
   }, [])
 
   useEffect(() => {
@@ -114,6 +118,16 @@ function Model({ triggerPlayback, scrollPercent }) {
   return (
     <group>
       <primitive object={gltf.scene} />
+      {/* <mesh position={[-25, 5, 50]} rotation={[Math.PI, Math.PI / 2, Math.PI]}>
+        <planeGeometry args={[10, 10]} />
+        <meshBasicMaterial side={2} ref={interactiveMaterialRef}>
+          <InteractiveTexture
+            x={x} y={y}
+            scrollPercent={scrollPercent}
+            interactiveMesh={interactiveMesh}
+          ></InteractiveTexture>
+        </meshBasicMaterial>
+      </mesh> */}
     </group >
   );
 }

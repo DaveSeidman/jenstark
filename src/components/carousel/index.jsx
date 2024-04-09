@@ -65,7 +65,7 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
       if (pointer.current.x) {
         const offset = {
           x: e.clientX - pointer.current.x,
-          y: e.clientY - pointer.current.y
+          y: Math.abs(e.clientX - pointer.current.x) > 1 ? 0 : e.clientY - pointer.current.y
         }
         setCamRotation((prevCamRotation) =>
           Math.abs(offset.y) > 10 ? 0 : prevCamRotation + (offset.x / 400)
