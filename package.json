@@ -1,6 +1,6 @@
 {
   "name": "jenstark",
-  "version": "0.0.102",
+  "version": "0.0.103",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -28,8 +28,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "airbnb",
-      "plugin:@react-three"
+      "airbnb"
     ],
     "env": {
       "browser": true,
@@ -49,14 +48,18 @@
       "jsx-a11y/no-static-element-interactions": 0,
       "jsx-a11y/media-has-caption": 0,
       "jsx-a11y/alt-text": 0
-    },
-    "stylelint": {
-      "extends": "stylelint-config-idiomatic-order",
-      "rules": {
-        "indentation": 2,
-        "max-empty-lines": 1,
-        "selector-list-comma-newline-after": "never-multi-line"
-      }
     }
+  },
+  "stylelint": {
+    "extends": "stylelint-config-idiomatic-order",
+    "rules": {
+      "indentation": 2,
+      "max-empty-lines": 1,
+      "selector-list-comma-newline-after": "never-multi-line"
+    },
+    "ignoreFiles": [
+      "**/*.js",
+      "**/*.jsx"
+    ]
   }
 }
