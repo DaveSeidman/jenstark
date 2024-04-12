@@ -113,7 +113,7 @@ function App() {
         <h1>{`Loading... ${Math.round(amountLoaded)}%`}</h1>
       </div>)}
       {!passcode && (<Passcode setPasscode={setPasscode} />)}
-      < p className="version">{`version: ${version} | ${passcode}`}</p>
+      {location.host === "la.cascadeshow.com"} ? <p></p> : <p className="version">{`version: ${version} | ${passcode}`}</p>
     </div >
   );
 }
