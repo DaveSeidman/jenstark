@@ -54,6 +54,8 @@ function App() {
     }
   })
 
+  console.log(location.host);
+  console.log(location.hostname);
   return (
     <div
       ref={appRef}
@@ -113,7 +115,7 @@ function App() {
         <h1>{`Loading... ${Math.round(amountLoaded)}%`}</h1>
       </div>)}
       {!passcode && (<Passcode setPasscode={setPasscode} />)}
-      {location.host === "la.cascadeshow.com"} ? <p></p> : <p className="version">{`version: ${version} | ${passcode}`}</p>
+      {location.hostname === "la.cascadeshow.com"} ? <p></p> : <p className="version">{`version: ${version} | ${passcode}`}</p>
     </div >
   );
 }
