@@ -4,7 +4,7 @@ import { LinearToneMapping, BasicShadowMap } from 'three';
 import { Bloom, EffectComposer, Vignette, SSR } from '@react-three/postprocessing';
 import { Environment, useProgress, PerformanceMonitor } from '@react-three/drei';
 // import envFile from '../../assets/images/metro_noord_4k.hdr';
-import envFile from '../../assets/images/TCom_OfficeCourtyard_office_square_2K_hdri_sphere.exr';
+import envFile from '../../assets/images/TCom_NightOffices_2K_hdri_sphere.hdr';
 import { TourCamera, OverviewCamera } from './cameras';
 
 import Model from './model';
@@ -84,9 +84,9 @@ function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, o
         <SSR {...props} />
         <Bloom
           mipmapBlur
-          intensity={1.5}
+          intensity={1.4}
           kernalSize={2}
-          luminanceSmoothing={1.25}
+          luminanceSmoothing={5.25}
           luminanceThreshold={0.95}
         />
         <Vignette />
