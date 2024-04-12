@@ -4,7 +4,7 @@ import { LinearToneMapping, BasicShadowMap } from 'three';
 import { Bloom, EffectComposer, Vignette, SSR } from '@react-three/postprocessing';
 import { Environment, useProgress, PerformanceMonitor } from '@react-three/drei';
 // import envFile from '../../assets/images/metro_noord_4k.hdr';
-import envFile from '../../assets/images/TCom_EmptyWarehouse4_2K_hdri_sphere.exr';
+import envFile from '../../assets/images/TCom_OfficeCourtyard_office_square_2K_hdri_sphere.exr';
 import { TourCamera, OverviewCamera } from './cameras';
 
 import Model from './model';
