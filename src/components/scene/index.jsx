@@ -1,7 +1,7 @@
 import React, { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { LinearToneMapping, BasicShadowMap } from 'three';
-import { Bloom, EffectComposer, Vignette, SSR } from '@react-three/postprocessing';
+import { Bloom, EffectComposer, Vignette, SSR, SSAO } from '@react-three/postprocessing';
 import { Environment, useProgress, PerformanceMonitor } from '@react-three/drei';
 // import envFile from '../../assets/images/metro_noord_4k.hdr';
 import envFile from '../../assets/images/TCom_NightOffices_2K_hdri_sphere.hdr';
@@ -61,7 +61,7 @@ function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, o
         // stencil: false,
         // depth: false,
         toneMapping: LinearToneMapping,
-        toneMappingExposure: 0.5,
+        toneMappingExposure: .75,
       }}
     >
       <PerformanceMonitor onIncline={() => setDpr(1)} onDecline={() => setDpr(0.75)} />
@@ -90,6 +90,15 @@ function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, o
           luminanceThreshold={0.95}
         />
         <Vignette />
+        {/* <SSAO
+          // blendFunction={}
+          kernalSize={2}
+          scale={2}
+          radius={.2}
+          bias={10}
+          samples={16}
+          distanceThreshold={.1}
+        ></SSAO> */}
       </EffectComposer>
     </Canvas>
   );
