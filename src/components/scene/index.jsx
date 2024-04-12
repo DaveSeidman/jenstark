@@ -61,7 +61,7 @@ function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, o
         // stencil: false,
         // depth: false,
         toneMapping: LinearToneMapping,
-        toneMappingExposure: .75,
+        toneMappingExposure: .65,
       }}
     >
       <PerformanceMonitor onIncline={() => setDpr(1)} onDecline={() => setDpr(0.75)} />
@@ -77,6 +77,7 @@ function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, o
           scrollPercent={scrollPercent}
           x={(scrollPercent % 1) * 50}
           y={(scrollPercent % 1) * 25}
+          overview={overview}
         />
       </Suspense>
 

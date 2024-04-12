@@ -103,10 +103,10 @@ export function OverviewCamera({ makeDefault }) {
   return (
     <OrthographicCamera
       makeDefault={makeDefault}
-      // position={[0, 100, 0]}
-      position={[80, 100, 8]}
+      position={[0, 100, 30]}
+      // position={[80, 100, 8]}
       rotation={[-90 * (Math.PI / 180), 0, 0]}
-      zoom={10}
+      zoom={4}
     />
   );
 }

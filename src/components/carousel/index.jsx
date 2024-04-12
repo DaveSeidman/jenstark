@@ -46,7 +46,7 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
       (Math.abs(pointer.current.y - prevPointer.current.y) < .1)
     ) {
       setScrollPercent((prevScrollPercent) => {
-        const nextScrollPercent = prevScrollPercent + .05
+        const nextScrollPercent = prevScrollPercent + .025
         // TODO: DRY:
         if (!loopedScene) {
           if (Math.abs(nextScrollPercent - startPercent) > 1) {
@@ -117,7 +117,10 @@ function Carousel({ startPercent, setCamRotation, pages, scrollHint, setScrollHi
       >
       </div>
       <div className={`scroll-hint ${scrollHint ? '' : 'hidden'}`}>
-        Scroll To Continue
+        <h2>Welcome to Cascade LA 3D!</h2>
+        <p>To navigate the space, click the room names, tap, or scroll with your trackpad, mouse or phone.</p>
+        <p>To look around, click + hold, and pull left or right.</p>
+        <p>Once you're done with the tour, scroll down the page to learn more.</p>
       </div>
     </div>
   );

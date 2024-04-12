@@ -1,6 +1,6 @@
 {
   "name": "jenstark",
-  "version": "0.0.109",
+  "version": "0.0.110",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -58,11 +58,6 @@
   },
   "stylelint": {
     "extends": "stylelint-config-idiomatic-order",
-    "rules": {
-      "indentation": 2,
-      "max-empty-lines": 1,
-      "selector-list-comma-newline-after": "never-multi-line"
-    },
     "ignoreFiles": [
       "**/*.js",
       "**/*.jsx"

@@ -6,13 +6,16 @@ import sceneFile from '../../assets/models/scene.glb';
 import { pages } from '../../../config.json'
 // import InteractiveTexture from './interactiveTexture';
 
-function Model({ triggerPlayback, scrollPercent, x, y }) {
+
+function Model({ triggerPlayback, scrollPercent, overview, x, y }) {
 
   // const [interactiveMesh, setInteractiveMesh] = useState();
   // const [sun, setSun] = useState(null);
   const clonedMeshes = useRef([]);
   // Ask GPT if we should move the gltf loading outside of here
   const gltf = useGLTF(sceneFile);
+  const fakeFloorMat = new MeshStandardMaterial();
+  const realFloorMat = useRef(gltf.scene.getObjectByName('floor').material.clone());
 
   // console.log(gltf.scene)
 
@@ -125,6 +128,22 @@ function Model({ triggerPlayback, scrollPercent, x, y }) {
     }
 
   }, [])
+
+
+  useEffect(() => {
+    console.log(overview, fakeFloorMat, realFloorMat);
+
+    const floorObject = gltf.scene.getObjectByName('floor');
+    const newMaterial = overview ? fakeFloorMat.clone() : realFloorMat.current.clone();
+
+    // Replace the material
+    floorObject.material.dispose();
+    floorObject.material = newMaterial;
+    floorObject.material.needsUpdate = true;
+
+    console.log(floorObject)
+
+  }, [overview])
 
   useEffect(() => {
     if (triggerPlayback) {
