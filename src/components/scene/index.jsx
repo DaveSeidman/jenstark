@@ -3,7 +3,8 @@ import { Canvas } from '@react-three/fiber';
 import { LinearToneMapping, BasicShadowMap } from 'three';
 import { Bloom, EffectComposer, Vignette, SSR } from '@react-three/postprocessing';
 import { Environment, useProgress, PerformanceMonitor } from '@react-three/drei';
-import envFile from '../../assets/images/metro_noord_4k.hdr';
+// import envFile from '../../assets/images/metro_noord_4k.hdr';
+import envFile from '../../assets/images/TCom_EmptyWarehouse4_2K_hdri_sphere.exr';
 import { TourCamera, OverviewCamera } from './cameras';
 
 import Model from './model';
@@ -69,7 +70,7 @@ function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, o
       <ambientLight intensity={0.1} />
       <TourCamera startPercent={startPercent} camRotation={camRotation} makeDefault={!overview} lookAhead={lookAhead} scrollPercent={scrollPercent} scrollOffset={scrollOffset} returnToLounge={returnToLounge} setReturnToLounge={setReturnToLounge} />
       <OverviewCamera makeDefault={overview} />
-      <Environment files={envFile} background intensity={1} />
+      <Environment files={envFile} background intensity={0} />
       <Suspense>
         <Model
           triggerPlayback={triggerPlayback}

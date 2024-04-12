@@ -108,6 +108,8 @@ function App() {
         loaded={loaded}
         setScrollHint={setScrollHint}
         setTriggerPlayback={setTriggerPlayback}
+        startPercent={startPercent}
+        setScrollPercent={setScrollPercent}
       />
       {amountLoaded < 100 && (<div className="preload">
         <h1>{`Loading... ${Math.round(amountLoaded)}%`}</h1>

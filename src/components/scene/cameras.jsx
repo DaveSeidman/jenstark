@@ -22,20 +22,12 @@ export function TourCamera({ startPercent, camRotation, makeDefault, scrollPerce
   const framesWithMotion = useRef(0);
 
   useFrame(() => {
-    // if (Math.abs(scrollPercent - progress.current) > .025) {
-    //   framesWithMotion.current += 1;
-    // }
-    // else {
-    //   framesWithMotion.current -= framesWithMotion.current > 0 ? 1 : 0;
-    // }
     progress.current += (scrollPercent - progress.current) / 20;
-    // console.log(Math.abs(scrollPercent - progress.current), framesWithMotion.current);
     curve.getPoint(progress.current % 1, positionTarget);
     curve.getPoint((progress.current - lookAhead) % 1, lookAtTarget);
     containerRef.current.position.copy(positionTarget)
     containerRef.current.lookAt(lookAtTarget);
 
-    // if(framesWithMotion.current > 5) setCamRotation(0); 
     cameraRef.current.rotation.y += (camRotation - cameraRef.current.rotation.y) / 20;
   });
 
@@ -67,17 +59,6 @@ export function TourCamera({ startPercent, camRotation, makeDefault, scrollPerce
     pointerTarget.current.y = clientX / width;
   };
 
-  useEffect(() => {
-    // addEventListener('pointerdown', pointerDown);
-    // addEventListener('pointermove', pointerMove);
-    // addEventListener('pointerup', pointerUp);
-
-    return () => {
-      // removeEventListener('pointerdown', pointerDown);
-      // removeEventListener('pointermove', pointerMove);
-      // removeEventListener('pointerup', pointerUp);
-    };
-  }, []);
 
   useEffect(() => {
     if (returnToLounge) {
@@ -96,22 +77,25 @@ export function TourCamera({ startPercent, camRotation, makeDefault, scrollPerce
       ref={containerRef}
       position={containerPosition}
     >
-      <PerspectiveCamera
-        ref={cameraRef}
-        makeDefault={makeDefault}
-        fov={70}
-        near={1}
-        far={1000}
-      >
-        <Cone
-          visible={!makeDefault}
-          scale={[2, 4, 2]}
-          rotation={[Math.PI / 2, 0, 0]}
-          material={new MeshBasicMaterial({ wireframe: true })}
-        ></Cone>
-      </PerspectiveCamera>
+      <group >
+        <PerspectiveCamera
+          ref={cameraRef}
+          makeDefault={makeDefault}
+          fov={70}
+          near={1}
+          far={1000}
+        >
+          <Cone
+            visible={!makeDefault}
+            scale={[2, 4, 2]}
+            rotation={[Math.PI / 2, 0, 0]}
+            material={new MeshBasicMaterial({ wireframe: true })}
+          ></Cone>
+        </PerspectiveCamera >
+      </group>
 
-    </group>
+
+    </group >
   );
 }
 
