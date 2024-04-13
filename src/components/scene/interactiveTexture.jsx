@@ -110,7 +110,6 @@ function InteractiveTexture({ scrollPercent, interactiveMesh }) {
       })
     }
 
-    // console.log(particles);
     particles.current.forEach(particle => { console.log(particle.x, particle.y) })
   }, [])
 

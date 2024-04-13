@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import './index.scss';
 import { pages } from '../config.json';
 import Scene from './components/scene';
-// import Restart from './components/restart';
 import Carousel from './components/carousel';
 import Progress from './components/progress';
 import Nav from './components/nav';
@@ -60,6 +59,7 @@ function App() {
       className={`app ${passcode ? '' : 'locked'}`}
     >
       <Scene
+        passcode={passcode}
         startPercent={startPercent}
         overview={overview}
         scrollPercent={scrollPercent}
@@ -108,9 +108,11 @@ function App() {
         loaded={loaded}
         setScrollHint={setScrollHint}
         setTriggerPlayback={setTriggerPlayback}
+        startPercent={startPercent}
+        setScrollPercent={setScrollPercent}
       />
       {amountLoaded < 100 && (<div className="preload">
-        <h1>{`Loading... ${Math.round(amountLoaded)}%`}</h1>
+        <h1>{`Wait for Loading... ${Math.round(amountLoaded)}%`}</h1>
       </div>)}
       {!passcode && (<Passcode setPasscode={setPasscode} />)}
       {location.host === `localhost:8080` ? <p className="version">{`version: ${version} | ${passcode}`}</p> : <p>&nbsp;</p>}

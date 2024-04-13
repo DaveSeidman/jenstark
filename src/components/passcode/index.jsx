@@ -22,7 +22,7 @@ function Passcode({ setPasscode }) {
     setPasscode(passcodes[Object.keys(passcodes)[passCodeIndex]].name);
     if (location.search.toLocaleLowerCase().includes('clearpasscode')) {
       // location.search = '';
-      history.pushState(null, '', '/');
+      history.pushState(null, '', location.origin + location.pathname);
     }
     localStorage.setItem('passcode', passcode);
   }
@@ -36,7 +36,7 @@ function Passcode({ setPasscode }) {
     const clear = location.search.toLocaleLowerCase().includes('clearpasscode')
     if (clear) return localStorage.removeItem('passcode');
     const savedCode = localStorage.getItem('passcode');
-    if (!clear && savedCode) setPasscode(savedCode)
+    if (!clear && savedCode) setPasscode(passcodes[savedCode].name)
 
   }, [])
 

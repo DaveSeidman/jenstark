@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [
     react(),
   ],
-  assetsInclude: ['**/*.glb', '**/*.hdr'],
+  assetsInclude: ['**/*.glb', '**/*.hdr', '**/*.exr'],
   server: {
     port: 8080,
     host: true,

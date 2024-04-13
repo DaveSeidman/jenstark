@@ -1,12 +1,13 @@
 {
   "name": "jenstark",
-  "version": "0.0.100",
+  "version": "0.0.113",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "vite",
     "build": "vite build --base=./",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check-images": "node scripts/checkImages.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,16 +16,20 @@
     "@react-three/fiber": "8.2.0",
     "@react-three/postprocessing": "^2.6.1",
     "@vitejs/plugin-react": "^4.2.1",
+    "dotenv": "^16.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.71.1",
+    "sharp": "^0.33.3",
     "three": "^0.145.0",
+    "tinypng": "^1.0.0",
     "vite": "^5.2.7"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-react": "^7.34.1"
+    "eslint-plugin-react": "^7.34.1",
+    "image-size": "^1.1.1"
   },
   "eslintConfig": {
     "extends": [
@@ -49,14 +54,13 @@
       "jsx-a11y/no-static-element-interactions": 0,
       "jsx-a11y/media-has-caption": 0,
       "jsx-a11y/alt-text": 0
-    },
-    "stylelint": {
-      "extends": "stylelint-config-idiomatic-order",
-      "rules": {
-        "indentation": 2,
-        "max-empty-lines": 1,
-        "selector-list-comma-newline-after": "never-multi-line"
-      }
     }
+  },
+  "stylelint": {
+    "extends": "stylelint-config-idiomatic-order",
+    "ignoreFiles": [
+      "**/*.js",
+      "**/*.jsx"
+    ]
   }
 }

@@ -4,43 +4,53 @@
       "title": "Entrance",
       "slug": "entrance",
       "percent": 0
-    },{
+    },
+    {
       "title": "Lounge",
       "slug": "lounge",
       "percent": 6
-    },{
+    },
+    {
       "title": "Activation Area",
       "slug": "activation-area",
       "percent": 10
-    },{
+    },
+    {
       "title": "Gift Shop",
       "slug": "gift-shop",
       "percent": 16
-    },{
+    },
+    {
       "title": "Reception",
       "slug": "reception",
       "percent": 21
-    },{
+    },
+    {
       "title": "Light Tunnel",
       "slug": "light-tunnel",
       "percent": 24
-    },{
+    },
+    {
       "title": "Strobe Wall",
       "slug": "strobe-wall",
       "percent": 30
-    },{
+    },
+    {
       "title": "Drip Cascade",
       "slug": "drip-cascade",
       "percent": 34
-    },{
+    },
+    {
       "title": "Rainbow Cycle",
       "slug": "rainbow-cycle",
       "percent": 53
-    },{
+    },
+    {
       "title": "Digital Paint",
       "slug": "digitalPaint",
       "percent": 62
-    },{
+    },
+    {
       "title": "Space Junk",
       "slug": "space-junk",
       "percent": 70
@@ -49,11 +59,13 @@
       "title": "Kaleidoscopic Waterfall",
       "slug": "kaleidoscopic-waterfall",
       "percent": 80
-    },{
+    },
+    {
       "title": "Photo Booth",
       "slug": "photo-booth",
       "percent": 91
-    },{
+    },
+    {
       "title": "Exit",
       "slug": "exit",
       "percent": 96
@@ -70,8 +82,14 @@
     "cascade": {
       "name": "generic"
     },
-    "sketchers": {
-      "name": "sketchers"
+    "panasonic": {
+      "name": "panasonic"
+    },
+    "epson": {
+      "name": "panasonic"
+    },
+    "skechers": {
+      "name": "skechers"
     },
     "bulleit": {
       "name": "bulleit"
