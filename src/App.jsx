@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import './index.scss';
 import { pages } from '../config.json';
 import Scene from './components/scene';
-// import Restart from './components/restart';
 import Carousel from './components/carousel';
 import Progress from './components/progress';
 import Nav from './components/nav';
@@ -60,6 +59,7 @@ function App() {
       className={`app ${passcode ? '' : 'locked'}`}
     >
       <Scene
+        passcode={passcode}
         startPercent={startPercent}
         overview={overview}
         scrollPercent={scrollPercent}

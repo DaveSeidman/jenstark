@@ -10,7 +10,7 @@ import { TourCamera, OverviewCamera } from './cameras';
 import Model from './model';
 import './index.scss';
 
-function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback, setAmountLoaded }) {
+function Scene({ passcode, startPercent, camRotation, returnToLounge, setReturnToLounge, overview, scrollPercent, scrollOffset, lookAhead, setLoaded, triggerPlayback, setAmountLoaded }) {
   const props = {
     temporalResolve: true,
     STRETCH_MISSED_RAYS: true,
@@ -73,6 +73,7 @@ function Scene({ startPercent, camRotation, returnToLounge, setReturnToLounge, o
       <Environment files={envFile} background intensity={0} />
       <Suspense>
         <Model
+          passcode={passcode}
           triggerPlayback={triggerPlayback}
           scrollPercent={scrollPercent}
           x={(scrollPercent % 1) * 50}

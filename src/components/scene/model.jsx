@@ -1,18 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber'
 import { AnimationMixer, VideoTexture, RepeatWrapping, MeshStandardMaterial } from 'three'
-import { useGLTF, useTexture } from '@react-three/drei';
+import { useGLTF, useTexture, MeshWobbleMaterial } from '@react-three/drei';
 import sceneFile from '../../assets/models/scene.glb';
 import { pages } from '../../../config.json'
 // import InteractiveTexture from './interactiveTexture';
 
-
-function Model({ triggerPlayback, scrollPercent, overview, x, y }) {
-
+function Model({ triggerPlayback, scrollPercent, overview, x, y, passcode }) {
+  const wobbleMat = useRef();
+  // console.log(wobbleMat.current)
   // const [interactiveMesh, setInteractiveMesh] = useState();
-  // const [sun, setSun] = useState(null);
   const clonedMeshes = useRef([]);
-  // Ask GPT if we should move the gltf loading outside of here
   const gltf = useGLTF(sceneFile);
   const fakeFloorMat = new MeshStandardMaterial();
   const realFloorMat = useRef(gltf.scene.getObjectByName('floor').material.clone());
@@ -67,14 +65,32 @@ function Model({ triggerPlayback, scrollPercent, overview, x, y }) {
     // sun.rotation.y += .1
 
 
+    const passcodeObjects = gltf.scene.getObjectByName('_passcodes');
+    console.log(passcodeObjects)
+    if (!passcodeObjects) console.log('passcodes object missing!')
+
+    if (passcodeObjects && passcode) {
+      passcodeObjects.children.forEach((child) => {
+        console.log(child)
+        child.visible = child.name === passcode
+      })
+    }
+
     if (clonedMeshes.current.length === 0) {
 
       gltf.scene.traverse((obj) => {
-        if (obj.isMesh) {
-          // obj.castShadow = true;
-          // obj.receiveShadow = true;
-          // console.log(obj)
-        }
+
+        // if (obj.name.includes('projector_beam')) {
+        //   wobbleMat.current.transparent = true;
+        //   wobbleMat.current.opacity = .1;
+        //   wobbleMat.current.alphaMap = obj.material.alphaMap;
+        //   obj.material = wobbleMat.current;
+        // }
+        // if (obj.isMesh) {
+        // obj.castShadow = true;
+        // obj.receiveShadow = true;
+        // console.log(obj)
+        // }
         if (obj.name.includes('clone') && !obj.name.includes('cloned')) {
           const name = obj.name.slice(0, -9);
           const originalObject = gltf.scene.getObjectByName(name);
@@ -82,7 +98,7 @@ function Model({ triggerPlayback, scrollPercent, overview, x, y }) {
             const clonedObject = originalObject.clone();
             clonedObject.name = `${name}_cloned`;
             clonedObject.position.copy(obj.position);
-            gltf.scene.add(clonedObject);
+            obj.parent.add(clonedObject);
             clonedMeshes.current.push(clonedObject)
           } else console.log('couldnt find', name)
           // console.log(name, originalObject);
@@ -127,21 +143,13 @@ function Model({ triggerPlayback, scrollPercent, overview, x, y }) {
       });
     }
 
-  }, [])
+  }, [passcode])
 
 
   useEffect(() => {
-    console.log(overview, fakeFloorMat, realFloorMat);
-
     const floorObject = gltf.scene.getObjectByName('floor');
     const newMaterial = overview ? fakeFloorMat.clone() : realFloorMat.current.clone();
-
-    // Replace the material
-    floorObject.material.dispose();
     floorObject.material = newMaterial;
-    floorObject.material.needsUpdate = true;
-
-    console.log(floorObject)
 
   }, [overview])
 
@@ -171,6 +179,9 @@ function Model({ triggerPlayback, scrollPercent, overview, x, y }) {
   return (
     <group>
       <primitive object={gltf.scene} />
+      <mesh>
+        <MeshWobbleMaterial ref={wobbleMat} />
+      </mesh>
       {/* <mesh position={[-25, 5, 50]} rotation={[Math.PI, Math.PI / 2, Math.PI]}>
         <planeGeometry args={[10, 10]} />
         <meshBasicMaterial side={2} ref={interactiveMaterialRef}>

@@ -20,6 +20,7 @@ fs.readdir(folderPath, (err, files) => {
     const filePath = path.join(folderPath, file);
     const { width, height } = sizeOf(filePath);
     if (width > 1024 || height > 1024) {
+      console.log('resziing', file)
       sharp(filePath)
         .resize(1024, Math.floor((width / height) * 1024))
         .toBuffer()

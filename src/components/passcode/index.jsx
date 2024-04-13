@@ -36,7 +36,7 @@ function Passcode({ setPasscode }) {
     const clear = location.search.toLocaleLowerCase().includes('clearpasscode')
     if (clear) return localStorage.removeItem('passcode');
     const savedCode = localStorage.getItem('passcode');
-    if (!clear && savedCode) setPasscode(savedCode)
+    if (!clear && savedCode) setPasscode(passcodes[savedCode].name)
 
   }, [])
 
