@@ -22,7 +22,7 @@ function Passcode({ setPasscode }) {
     setPasscode(passcodes[Object.keys(passcodes)[passCodeIndex]].name);
     if (location.search.toLocaleLowerCase().includes('clearpasscode')) {
       // location.search = '';
-      history.pushState(null, '', '/');
+      history.pushState(null, '', location.origin + location.pathname);
     }
     localStorage.setItem('passcode', passcode);
   }
