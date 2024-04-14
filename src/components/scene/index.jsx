@@ -41,7 +41,7 @@ function Scene({ passcode, startPercent, camRotation, returnToLounge, setReturnT
     thickness: 10,
     ior: 1.5,
   };
-  const [dpr, setDpr] = useState(1.0);
+  const [dpr, setDpr] = useState(.75);
 
   const { progress } = useProgress();
   setAmountLoaded(progress);
