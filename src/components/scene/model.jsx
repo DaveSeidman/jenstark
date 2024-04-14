@@ -18,6 +18,7 @@ function Model({ triggerPlayback, scrollPercent, overview, x, y, passcode }) {
   // console.log(gltf.scene)
 
   const alloySign = gltf.scene.getObjectByName('alloy')
+  const lucidCar = gltf.scene.getObjectByName('lucid-car')
   // console.log(alloySign);
   const videoTextures = useRef({})
   const mixers = useRef([]);
@@ -66,12 +67,10 @@ function Model({ triggerPlayback, scrollPercent, overview, x, y, passcode }) {
 
 
     const passcodeObjects = gltf.scene.getObjectByName('_passcodes');
-    console.log(passcodeObjects)
     if (!passcodeObjects) console.log('passcodes object missing!')
 
     if (passcodeObjects && passcode) {
       passcodeObjects.children.forEach((child) => {
-        console.log(child)
         child.visible = child.name === passcode
       })
     }
@@ -166,6 +165,7 @@ function Model({ triggerPlayback, scrollPercent, overview, x, y, passcode }) {
     })
 
     alloySign.rotation.y += .005;
+    lucidCar.rotation.y += .005;
 
     mixers.current.forEach(mixer => {
       mixer.update(delta)

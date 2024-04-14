@@ -93,6 +93,9 @@
     },
     "bulleit": {
       "name": "bulleit"
+    },
+    "lucid": {
+      "name": "lucid"
     }
   }
 }
