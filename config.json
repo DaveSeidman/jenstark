@@ -8,12 +8,12 @@
     {
       "title": "Lounge",
       "slug": "lounge",
-      "percent": 6
+      "percent": 5
     },
     {
       "title": "Activation Area",
       "slug": "activation-area",
-      "percent": 10
+      "percent": 9
     },
     {
       "title": "Gift Shop",
@@ -23,7 +23,7 @@
     {
       "title": "Reception",
       "slug": "reception",
-      "percent": 21
+      "percent": 18
     },
     {
       "title": "Light Tunnel",
@@ -33,22 +33,22 @@
     {
       "title": "Strobe Wall",
       "slug": "strobe-wall",
-      "percent": 30
+      "percent": 28
     },
     {
       "title": "Drip Cascade",
       "slug": "drip-cascade",
-      "percent": 34
+      "percent": 32
     },
     {
       "title": "Rainbow Cycle",
       "slug": "rainbow-cycle",
-      "percent": 53
+      "percent": 50
     },
     {
       "title": "Digital Paint",
       "slug": "digitalPaint",
-      "percent": 62
+      "percent": 60
     },
     {
       "title": "Space Junk",
@@ -58,7 +58,7 @@
     {
       "title": "Kaleidoscopic Waterfall",
       "slug": "kaleidoscopic-waterfall",
-      "percent": 83
+      "percent": 82
     },
     {
       "title": "Photo Booth",

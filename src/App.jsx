@@ -112,7 +112,7 @@ function App() {
         setScrollPercent={setScrollPercent}
       />
       {amountLoaded < 100 && (<div className="preload">
-        <h1>{`Wait for Loading... ${Math.round(amountLoaded)}%`}</h1>
+        <h1>{`Loading... Wait to Enter: ${Math.round(amountLoaded)}%`}</h1>
       </div>)}
       {!passcode && (<Passcode setPasscode={setPasscode} />)}
       < p className="version">{`version: ${version} | ${passcode}`}</p>
