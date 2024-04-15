@@ -69,7 +69,6 @@ export function TourCamera({ startPercent, camRotation, makeDefault, scrollPerce
 
   useEffect(() => {
     rotationTarget.current.y = Math.PI;
-
   }, [scrollPercent])
 
   return (
@@ -83,7 +82,7 @@ export function TourCamera({ startPercent, camRotation, makeDefault, scrollPerce
           makeDefault={makeDefault}
           fov={70}
           near={1}
-          far={1000}
+          far={80}
         >
           <Cone
             visible={!makeDefault}
