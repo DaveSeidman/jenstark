@@ -146,7 +146,7 @@ function Model({ triggerPlayback, scrollPercent, overview, x, y, passcode }) {
   }, [passcode])
 
   useEffect(() => {
-    // console.log(videoTextures.current)
+    console.log(videoTextures.current)
   }, [scrollPercent])
 
   useEffect(() => {
