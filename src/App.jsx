@@ -93,7 +93,6 @@ function App() {
       ><img src={overview ? icon3D : icon2D} /></button>
       <Progress
         scrollPercent={scrollPercent}
-        // setScrollPercent={setScrollPercent}
         setCarouselPage={setCarouselPage}
       ></Progress>
       <a href="#nav"><div className={`continue ${!scrolledPage && loopedScene ? 'shake' : ''}`}><img src={downArrow} />Continue Below<img src={downArrow} /></div></a>
@@ -112,7 +111,7 @@ function App() {
         setScrollPercent={setScrollPercent}
       />
       {amountLoaded < 100 && (<div className="preload">
-        <h1>{`Wait for Loading... ${Math.round(amountLoaded)}%`}</h1>
+        <h1>{`Loading... Wait to Enter: ${Math.round(amountLoaded)}%`}</h1>
       </div>)}
       {!passcode && (<Passcode setPasscode={setPasscode} />)}
       {location.host === `localhost:8080` ? <p className="version">{`version: ${version} | ${passcode}`}</p> : <p>&nbsp;</p>}

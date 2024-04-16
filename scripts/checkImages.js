@@ -21,21 +21,21 @@ fs.readdir(folderPath, (err, files) => {
     const { width, height } = sizeOf(filePath);
     if (width > 1024 || height > 1024) {
       console.log('resziing', file)
-      sharp(filePath)
-        .resize(1024, Math.floor((width / height) * 1024))
-        .toBuffer()
-        .then((buffer) => {
-          fs.writeFile(filePath, buffer, (err) => {
-            if (err) {
-              console.error('Error replacing original file:', err);
-            } else {
-              console.log('Replaced original file with resized version.');
-            }
-          });
-        })
-        .catch((err) => {
-          console.error('Error resizing image:', err);
-        });
+      // sharp(filePath)
+      //   .resize(1024, Math.floor((width / height) * 1024))
+      //   .toBuffer()
+      //   .then((buffer) => {
+      //     fs.writeFile(filePath, buffer, (err) => {
+      //       if (err) {
+      //         console.error('Error replacing original file:', err);
+      //       } else {
+      //         console.log('Replaced original file with resized version.');
+      //       }
+      //     });
+      //   })
+      //   .catch((err) => {
+      //     console.error('Error resizing image:', err);
+      //   });
     }
   });
 });

@@ -8,22 +8,22 @@
     {
       "title": "Lounge",
       "slug": "lounge",
-      "percent": 6
+      "percent": 5
     },
     {
       "title": "Activation Area",
       "slug": "activation-area",
-      "percent": 10
+      "percent": 9
     },
     {
       "title": "Gift Shop",
       "slug": "gift-shop",
-      "percent": 16
+      "percent": 14
     },
     {
       "title": "Reception",
       "slug": "reception",
-      "percent": 21
+      "percent": 18
     },
     {
       "title": "Light Tunnel",
@@ -33,22 +33,22 @@
     {
       "title": "Strobe Wall",
       "slug": "strobe-wall",
-      "percent": 30
+      "percent": 28
     },
     {
       "title": "Drip Cascade",
       "slug": "drip-cascade",
-      "percent": 34
+      "percent": 32
     },
     {
       "title": "Rainbow Cycle",
       "slug": "rainbow-cycle",
-      "percent": 53
+      "percent": 50
     },
     {
       "title": "Digital Paint",
       "slug": "digitalPaint",
-      "percent": 62
+      "percent": 60
     },
     {
       "title": "Space Junk",
@@ -58,7 +58,7 @@
     {
       "title": "Kaleidoscopic Waterfall",
       "slug": "kaleidoscopic-waterfall",
-      "percent": 80
+      "percent": 82
     },
     {
       "title": "Photo Booth",
@@ -86,13 +86,46 @@
       "name": "panasonic"
     },
     "epson": {
-      "name": "panasonic"
+      "name": "epson"
     },
     "skechers": {
       "name": "skechers"
     },
     "bulleit": {
       "name": "bulleit"
+    },
+    "lucid": {
+      "name": "lucid"
     }
+  },
+  "SSRProps": {
+    "temporalResolve": true,
+    "STRETCH_MISSED_RAYS": true,
+    "USE_MRT": true,
+    "USE_NORMALMAP": true,
+    "USE_ROUGHNESSMAP": true,
+    "ENABLE_JITTERING": true,
+    "ENABLE_BLUR": false,
+    "temporalResolveMix": 0.9,
+    "temporalResolveCorrectionMix": 0.25,
+    "maxSamples": 0,
+    "resolutionScale": 1,
+    "blurMix": 0.5,
+    "blurKernelSize": 8,
+    "blurSharpness": 0.5,
+    "rayStep": 0.3,
+    "intensity": 0.5,
+    "maxRoughness": 0.1,
+    "jitter": 0.7,
+    "jitterSpread": 0.75,
+    "jitterRough": 0.1,
+    "roughnessFadeOut": 1,
+    "rayFadeOut": 0,
+    "MAX_STEPS": 10,
+    "NUM_BINARY_SEARCH_STEPS": 5,
+    "maxDepthDifference": 3,
+    "maxDepth": 1,
+    "thickness": 10,
+    "ior": 1.5
   }
 }
